@@ -1,5 +1,6 @@
 package com.example.manisigurdsson.hangman;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,9 @@ public class Menu extends AppCompatActivity {
     }
 
     public void ClickedSinglePlayer(View view) {
-        // TODO
+        Intent intent = new Intent(this, Hangman.class);
+        startActivity(intent);
+        setContentView(R.layout.activity_hangman);
+
     }
 }

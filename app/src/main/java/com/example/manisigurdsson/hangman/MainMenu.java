@@ -26,7 +26,7 @@ public class MainMenu extends AppCompatActivity {
             startActivityForResult(intent, REQ_ID);
         }
         else{
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_main);
         loginButton = findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
