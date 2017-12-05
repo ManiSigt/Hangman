@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Hangman</string>
     <string name="facebook_app_id">2043777559198570</string>
+    <string name="single_player">Single Player</string>
+    <string name="two_player"> Two Player </string>
+    <string name="options"> Options </string>
 </resources>
