@@ -13,19 +13,22 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/single_player"
-        android:id="@+id/singlePlayerID"/>
+        android:id="@+id/singlePlayerID"
+        android:onClick="ClickedSinglePlayer"/>
 
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/twoPlayerID"
-        android:text="@string/two_player" />
+        android:text="@string/two_player"
+        android:onClick="ClickedTwoPlayer"/>
 
     <Button
         android:layout_marginTop="10dp"
         android:id="@+id/optionsID"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:onClick="ClickedOptions"
         android:text="@string/options" />
 </LinearLayout>
