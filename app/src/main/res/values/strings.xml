@@ -4,4 +4,9 @@
     <string name="single_player">Single Player</string>
     <string name="two_player"> Two Player </string>
     <string name="options"> Options </string>
+    <string name="stats">Stats</string>
+    <string name="wins">Wins: </string>
+    <string name="losses">Losses:</string>
+    <string name="played">Played:</string>
+    <string name="highscores">Highscores</string>
 </resources>
