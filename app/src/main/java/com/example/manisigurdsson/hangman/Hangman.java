@@ -1,14 +1,9 @@
 package com.example.manisigurdsson.hangman;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,12 +17,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class Hangman extends AppCompatActivity {
 
     TextView word_view;
     TextView hidden_view;
     EditText input_field;
     String word;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +46,6 @@ public class Hangman extends AppCompatActivity {
         for(int i = 0; i < word.length(); i++){
             if(charArrayWord[i] == guessChar){
                 hiddenArray[i] = guessChar;
-                Log.d("h array: ", ""+hiddenArray[i]);
             }
         }
         build_hidden = "";
@@ -58,7 +55,6 @@ public class Hangman extends AppCompatActivity {
         hidden_view.setText(build_hidden);
         input_field.setText("");
     }
-
 
     public class getData extends AsyncTask<String, String, String> {
 
@@ -87,7 +83,6 @@ public class Hangman extends AppCompatActivity {
             finally {
                 urlConnection.disconnect();
             }
-
             return result.toString();
         }
 
@@ -99,15 +94,55 @@ public class Hangman extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.d("json: ", word);
-            word_view.setText(word);
+            new getTranslation().execute();
+        }
+    }
 
-            String build_hidden = "";
-            for(int i = 0; i < word.length(); i++){
-                build_hidden += "-";
+    public class getTranslation extends AsyncTask <String, String, String> {
+        HttpsURLConnection conn;
+        @Override
+        protected String doInBackground(String... strings) {
+
+            StringBuilder result = new StringBuilder();
+            try {
+                String urlStr = "https://glosbe.com/gapi/translate?from=eng&dest=isl&phrase=" + word + "&tm=false&format=json";
+
+                URL url = new URL(urlStr);
+
+                conn = (HttpsURLConnection) url.openConnection();
+                InputStream stream = new BufferedInputStream(conn.getInputStream());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conn.disconnect();
             }
-            hidden_view.setText(build_hidden);
+            return result.toString();
         }
 
+        @Override
+        protected void onPostExecute(String result) {
+            try{
+                JSONObject json = new JSONObject(result)
+                        .getJSONArray("tuc")
+                        .getJSONObject(0)
+                        .getJSONObject("phrase");
+                word = (String) json.get("text");
+                word_view.setText(word);
+                String build_hidden = "";
+                for(int i = 0; i < word.length(); i++){
+                    build_hidden += "-";
+                }
+                hidden_view.setText(build_hidden);
+            } catch (JSONException e) {
+                new getData().execute();
+                e.printStackTrace();
+            }
+        }
     }
 }
