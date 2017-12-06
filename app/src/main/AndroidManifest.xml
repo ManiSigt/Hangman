@@ -26,7 +26,8 @@
         <activity android:name=".Menu" />
         <activity android:name=".Hangman" />
         <activity android:name=".HighScoreActivity" />
-        <activity android:name=".StatsActivity"></activity>
+        <activity android:name=".StatsActivity" />
+        <activity android:name=".Options" />
     </application>
 
 </manifest>

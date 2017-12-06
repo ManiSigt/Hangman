@@ -9,4 +9,7 @@
     <string name="losses">Losses:</string>
     <string name="played">Played:</string>
     <string name="highscores">Highscores</string>
+    <string name="off">off</string>
+    <string name="on">on</string>
+    <string name="music">music</string>
 </resources>
