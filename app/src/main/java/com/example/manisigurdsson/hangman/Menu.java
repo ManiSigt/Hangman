@@ -8,26 +8,31 @@ import android.view.View;
 
 public class Menu extends AppCompatActivity {
 
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.em);
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.em);
         mp.start();
     }
 
     public void ClickedTwoPlayer(View view) {
         // TODO
+        mp.stop();
     }
 
     public void ClickedOptions(View view) {
         // TODO
+        mp.stop();
     }
 
     public void ClickedSinglePlayer(View view) {
         Intent intent = new Intent(this, Hangman.class);
         startActivity(intent);
         setContentView(R.layout.activity_hangman);
+        mp.stop();
 
     }
 }
