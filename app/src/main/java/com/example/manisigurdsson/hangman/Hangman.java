@@ -1,6 +1,7 @@
 package com.example.manisigurdsson.hangman;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.AsyncTask;
@@ -9,8 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +30,10 @@ public class Hangman extends AppCompatActivity {
     TextView word_view;
     TextView hidden_view;
     EditText input_field;
+    Button inputbtn;
     String word;
+    int MAX_TRIES = 10;
+    int tries = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,29 +43,60 @@ public class Hangman extends AppCompatActivity {
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
+        inputbtn = findViewById(R.id.btn_guess);
     }
 
-    public void takeGuess(View view) {
-        String guess = input_field.getText().toString();
-        String build_hidden = hidden_view.getText().toString();
-        char[] hiddenArray = build_hidden.toCharArray();
-        char[] charArrayWord = word.toCharArray();
-        char guessChar = guess.charAt(0);
+        public void takeGuess (View view){
+        String guess = " ";
+        if(input_field.getText().toString().trim().length() != 0) {
+            guess = input_field.getText().toString().toLowerCase();
+        }
+        StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
+        StringBuilder theWord = new StringBuilder(word);
+            char guessChar = guess.charAt(0);
+            if (guessChar == ' ') {
+                Toast.makeText(this, "Ekki rétt",
+                        Toast.LENGTH_SHORT).show();
+                tries++;
+            }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
+                Toast.makeText(this, "Ekki rétt ",
+                        Toast.LENGTH_SHORT).show();
+                tries++;
+            }
+            else {
+                Toast.makeText(this, "Rétt!" ,
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (build_hidden.toString().equals(theWord.toString())) {
+                Toast.makeText(this, "Sigurvegari!",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Hangman.this, Menu.class);
+                startActivity(intent);
+            }
+            hidden_view.setText(build_hidden);
+            input_field.setText("");
+        if (tries == MAX_TRIES) {
+            Toast.makeText(this, "Gengur betur næst!",
+                    Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Hangman.this, Menu.class);
+            startActivity(intent);
+        }
+    }
+
+
+    public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
+        int correctChars = 0;
         for(int i = 0; i < word.length(); i++){
-            if(charArrayWord[i] == guessChar){
-                hiddenArray[i] = guessChar;
-                Log.d("h array: ", ""+hiddenArray[i]);
+            if(guessChar == hiddenArray.charAt(i)){
+                return 0;
+            }
+            if(guessChar == theWord.charAt(i)){
+                hiddenArray.setCharAt(i, guessChar);
+                correctChars ++;
             }
         }
-        build_hidden = "";
-        for(int i = 0; i < word.length(); i++){
-            build_hidden += hiddenArray[i];
-        }
-        hidden_view.setText(build_hidden);
-        input_field.setText("");
+        return correctChars;
     }
-
-
     public class getData extends AsyncTask<String, String, String> {
 
         HttpURLConnection urlConnection;
