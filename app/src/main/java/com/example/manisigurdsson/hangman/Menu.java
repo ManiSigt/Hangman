@@ -1,10 +1,7 @@
 package com.example.manisigurdsson.hangman;
 
-<<<<<<< HEAD
 import android.content.Intent;
-=======
 import android.media.MediaPlayer;
->>>>>>> 3ebec7302f4fdb236c3ffecf93b2a19e8633e0c7
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
