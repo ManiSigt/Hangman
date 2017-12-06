@@ -24,7 +24,9 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".Menu" />
-        <activity android:name=".Hangman"></activity>
+        <activity android:name=".Hangman" />
+        <activity android:name=".HighScoreActivity" />
+        <activity android:name=".StatsActivity"></activity>
     </application>
 
 </manifest>
