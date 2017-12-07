@@ -75,6 +75,7 @@ public class Hangman extends AppCompatActivity {
     //saves new user to database, overwrites old user
     public void saveAndUpdateUserToDataBase(){
         DatabaseReference ref = mDatabase.child("users");
+        user.setName(username);
         ref.child(username).setValue(user);
     }
 
