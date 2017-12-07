@@ -12,13 +12,21 @@ public class User {
     private int played;
     private int rubies;
 
-    public User(String name, int score, int wins, int losses, int played, int rubies) {
+    public User(String name) {
         this.name = name;
-        this.score = score;
-        this.wins = wins;
-        this.losses = losses;
-        this.played = played;
-        this.rubies = rubies;
+        this.score = 0;
+        this.wins = 0;
+        this.losses = 0;
+        this.played = 0;
+        this.rubies = 0;
+    }
+    public User() {
+        this.name = "";
+        this.score = 0;
+        this.wins = 0;
+        this.losses = 0;
+        this.played = 0;
+        this.rubies = 0;
     }
 
     public String getName() {

@@ -1,14 +1,18 @@
 package com.example.manisigurdsson.hangman;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -32,6 +36,10 @@ public class MainMenu extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Profile profile = Profile.getCurrentProfile();
+                if (profile != null) {
+                    Log.d("Logged, user name=", profile.getName());
+                }
                 Intent intent = new Intent(MainMenu.this, Menu.class);
                 startActivityForResult(intent, REQ_ID);
             }
@@ -53,7 +61,19 @@ public class MainMenu extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
     public boolean isLoggedIn() {
+        Profile profile = Profile.getCurrentProfile();
+        if (profile != null) {
+            Log.d("Logged, user name=", profile.getName());
+        }
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
+    }
+
+    public void saveUser (String user){
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        Editor editor = pref.edit();
+
+        editor.putString("username", user); // Storing string
+        editor.apply(); // apply changes
     }
 }
