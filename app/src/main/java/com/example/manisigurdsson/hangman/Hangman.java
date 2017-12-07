@@ -92,11 +92,96 @@ public class Hangman extends AppCompatActivity {
             Toast.makeText(this, "Ekki rétt",
                     Toast.LENGTH_SHORT).show();
             tries++;
+            if(MAX_TRIES == 9) {
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman2);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman6);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 7) {
+                    img.setImageResource(R.drawable.hangman8);
+                } else if (tries == 8) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 9) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else if(MAX_TRIES == 6){
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else{
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }
         }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
-
             tries++;
+            if(MAX_TRIES == 9) {
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman2);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman6);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 7) {
+                    img.setImageResource(R.drawable.hangman8);
+                } else if (tries == 8) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 9) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else if(MAX_TRIES == 6){
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else{
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }
         }
         else {
             Toast.makeText(this, "Rétt!" ,
