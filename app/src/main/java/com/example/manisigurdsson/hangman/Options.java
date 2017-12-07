@@ -1,5 +1,6 @@
 package com.example.manisigurdsson.hangman;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,9 @@ import android.widget.Switch;
 import android.widget.ToggleButton;
 
 public class Options extends AppCompatActivity {
-    MediaPlayer mp;
-    Button on, off;
+
+    Button on, off, submit;
+    int musicOnOrOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,20 +21,31 @@ public class Options extends AppCompatActivity {
         setContentView(R.layout.activity_optio);
         on = findViewById(R.id.onbtnid);
         off = findViewById(R.id.offbtnid);
-        off.setClickable(false);
+        submit = findViewById(R.id.submitid);
+        int key = getIntent().getIntExtra("onOrOFf", 0);
+        if(key == 0){
+            off.setClickable(false);
+        }else{
+            on.setClickable(false);
+        }
     }
 
     public void offClick(View view) {
-        mp.stop();
-        mp.reset();
+        musicOnOrOff = 0;
         on.setClickable(true);
         off.setClickable(false);
     }
 
     public void onclck(View view) {
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.em);
-        mp.start();
+        musicOnOrOff = 1;
         on.setClickable(false);
         off.setClickable(true);
+    }
+
+    public void SubmitClick(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("MSG", musicOnOrOff);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
