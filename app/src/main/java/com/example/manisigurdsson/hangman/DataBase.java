@@ -18,7 +18,7 @@ import java.util.Map;
 public class DataBase {
 
     String username;
-    User user;
+    User user = new User();
     List<User> users;
 
     //database reference

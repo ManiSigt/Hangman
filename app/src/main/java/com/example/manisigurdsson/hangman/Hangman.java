@@ -66,7 +66,6 @@ public class Hangman extends AppCompatActivity {
         List<User> list = db.getUserList();
 
         img = findViewById(R.id.imageView);
-        user = db.getUser();
         db.saveUser(user);
         if(difficulty == 1){
             MAX_TRIES = 9;
