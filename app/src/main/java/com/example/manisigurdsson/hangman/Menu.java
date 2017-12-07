@@ -20,7 +20,8 @@ public class Menu extends AppCompatActivity {
     }
 
     public void ClickedTwoPlayer(View view) {
-        // TODO
+        Intent intent = new Intent(this, TwoPlayerOptions.class);
+        startActivity(intent);
 
     }
 
