@@ -39,6 +39,7 @@ public class MainMenu extends AppCompatActivity {
                 Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
                     Log.d("Logged, user name=", profile.getName());
+                    saveUser(profile.getName());
                 }
                 Intent intent = new Intent(MainMenu.this, Menu.class);
                 startActivityForResult(intent, REQ_ID);
@@ -64,6 +65,7 @@ public class MainMenu extends AppCompatActivity {
         Profile profile = Profile.getCurrentProfile();
         if (profile != null) {
             Log.d("Logged, user name=", profile.getName());
+            saveUser(profile.getName());
         }
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
