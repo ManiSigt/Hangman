@@ -12,4 +12,5 @@
     <string name="off">off</string>
     <string name="on">on</string>
     <string name="music">music</string>
+    <string name="submit">Submit</string>
 </resources>
