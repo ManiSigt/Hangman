@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -45,15 +47,18 @@ public class Hangman extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         String username = pref.getString("username", null); // getting String
 
-        db = new DataBase(username);
+        db = new DataBase();
+        db.userExist(username);
+        user = db.getUser();
+
 
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
-        user = db.getUser();
-        db.saveUser(user);
+
+        List<User> list = db.getUserList();
     }
 
     public void takeGuess (View view){
@@ -99,6 +104,7 @@ public class Hangman extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        user.addScore(250);
         db.saveUser(user);
     }
 
