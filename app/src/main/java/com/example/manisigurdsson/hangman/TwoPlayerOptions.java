@@ -24,7 +24,7 @@ public class TwoPlayerOptions extends AppCompatActivity {
         String p1name = p1.getText().toString();
         String p2name = p2.getText().toString();
         String sec = secret.getText().toString();
-        Intent intent = new Intent(TwoPlayerOptions.this, Hangman.class);
+        Intent intent = new Intent(TwoPlayerOptions.this, Hangman2player.class);
         intent.putExtra("p1", p1name);
         intent.putExtra("p2", p2name);
         intent.putExtra("secret", sec);

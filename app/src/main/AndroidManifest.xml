@@ -28,7 +28,8 @@
         <activity android:name=".HighScoreActivity" />
         <activity android:name=".StatsActivity" />
         <activity android:name=".Options" />
-        <activity android:name=".TwoPlayerOptions"></activity>
+        <activity android:name=".TwoPlayerOptions" />
+        <activity android:name=".Hangman2player"></activity>
     </application>
 
 </manifest>
