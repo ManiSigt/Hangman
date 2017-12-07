@@ -17,7 +17,6 @@ public class User {
         this.score = 0;
         this.wins = 0;
         this.losses = 0;
-        this.played = 0;
         this.rubies = 0;
     }
     public User() {
@@ -25,7 +24,6 @@ public class User {
         this.score = 0;
         this.wins = 0;
         this.losses = 0;
-        this.played = 0;
         this.rubies = 0;
     }
 
@@ -45,35 +43,29 @@ public class User {
         return losses;
     }
 
-    public int getPlayed() {
-        return played;
-    }
-
     public int getRubies() {
         return rubies;
     }
+
+    public int getPlayed() { return (wins + losses); }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void addScore(int score) {
+        this.score += score;
     }
 
-    public void setWins(int wins) {
-        this.wins = wins;
+    public void addWin() {
+        this.wins += 1;
     }
 
-    public void setLosses(int losses) {
-        this.losses = losses;
+    public void addLoss() {
+        this.losses += 1;
     }
 
-    public void setPlayed(int played) {
-        this.played = played;
-    }
-
-    public void setRubies(int rubies) {
-        this.rubies = rubies;
+    public void addRubies(int rubies) {
+        this.rubies += rubies;
     }
 }
