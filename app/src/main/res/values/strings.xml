@@ -13,4 +13,8 @@
     <string name="on">on</string>
     <string name="music">music</string>
     <string name="submit">Submit</string>
+    <string name="p1">Player 1</string>
+    <string name="p2">Player 2</string>
+    <string name="secret">Secret Word</string>
+    <string name="sub">Submit</string>
 </resources>
