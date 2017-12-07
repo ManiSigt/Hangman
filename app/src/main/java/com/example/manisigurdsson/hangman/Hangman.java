@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class Hangman extends AppCompatActivity {
     Button inputbtn;
     String word;
     User user;
+    ImageView img;
 
     int MAX_TRIES = 10;
     int tries = 0;
@@ -52,6 +54,7 @@ public class Hangman extends AppCompatActivity {
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
+        img = findViewById(R.id.imageView);
         user = db.getUser();
         db.saveUser(user);
     }
@@ -71,6 +74,7 @@ public class Hangman extends AppCompatActivity {
         }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
+
             tries++;
         }
         else {
