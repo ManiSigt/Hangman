@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +34,11 @@ public class Hangman extends AppCompatActivity {
     Button inputbtn;
     String word;
     User user;
+    ImageView img;
 
-    int MAX_TRIES = 10;
+    int MAX_TRIES;
     int tries = 0;
+    int score;
 
     DataBase db;
 
@@ -51,6 +54,8 @@ public class Hangman extends AppCompatActivity {
         db.userExist(username);
         user = db.getUser();
 
+        int difficulty = getIntent().getIntExtra("msg", 1);
+
 
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
@@ -59,6 +64,21 @@ public class Hangman extends AppCompatActivity {
         inputbtn = findViewById(R.id.btn_guess);
 
         List<User> list = db.getUserList();
+
+        img = findViewById(R.id.imageView);
+        user = db.getUser();
+        db.saveUser(user);
+        if(difficulty == 1){
+            MAX_TRIES = 9;
+            score = 1000;
+        }else if (difficulty == 2){
+            MAX_TRIES = 6;
+            score = 2000;
+        }else{
+            MAX_TRIES = 3;
+            score = 3000;
+        }
+
     }
 
     public void takeGuess (View view){
@@ -76,6 +96,7 @@ public class Hangman extends AppCompatActivity {
         }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
+
             tries++;
         }
         else {
@@ -84,7 +105,7 @@ public class Hangman extends AppCompatActivity {
         }
         if (build_hidden.toString().equals(theWord.toString())) {
             user.addWin();
-            user.addScore(1000/word.length());
+            user.addScore(score/word.length());
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Hangman.this, Menu.class);
