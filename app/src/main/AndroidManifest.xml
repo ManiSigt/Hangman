@@ -29,7 +29,8 @@
         <activity android:name=".StatsActivity" />
         <activity android:name=".Options" />
         <activity android:name=".TwoPlayerOptions" />
-        <activity android:name=".Hangman2player"></activity>
+        <activity android:name=".Hangman2player" />
+        <activity android:name=".DifficultySettings"></activity>
     </application>
 
 </manifest>

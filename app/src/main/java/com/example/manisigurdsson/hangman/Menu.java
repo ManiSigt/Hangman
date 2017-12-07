@@ -32,9 +32,8 @@ public class Menu extends AppCompatActivity {
     }
 
     public void ClickedSinglePlayer(View view) {
-        Intent intent = new Intent(this, Hangman.class);
+        Intent intent = new Intent(this, DifficultySettings.class);
         startActivity(intent);
-        setContentView(R.layout.activity_hangman);
 
     }
     @Override
