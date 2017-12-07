@@ -1,5 +1,5 @@
-local.properties
-app.iml
+*local.properties
+*app.iml
 
 # Built application files
 *.apk
