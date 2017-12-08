@@ -5,26 +5,17 @@ package com.example.manisigurdsson.hangman;
  */
 
 public class User {
-    private String name;
+    private String name = "";
     private int score;
     private int wins;
     private int losses;
     private int played;
     private int rubies;
 
-    public User(String name) {
-        this.name = name;
-        this.score = 0;
-        this.wins = 0;
-        this.losses = 0;
-        this.rubies = 0;
+    public User(String s) {
+        name = s;
     }
     public User() {
-        this.name = "";
-        this.score = 0;
-        this.wins = 0;
-        this.losses = 0;
-        this.rubies = 0;
     }
 
     public String getName() {
@@ -47,25 +38,29 @@ public class User {
         return rubies;
     }
 
-    public int getPlayed() { return (wins + losses); }
+    public int getPlayed() { return (played); }
 
-    public void setName(String name) {
-        this.name = name;
+
+
+    public void setName(String s) {
+        name = s;
     }
 
-    public void addScore(int score) {
-        this.score += score;
+    public void addScore(int n) {
+        score = score  + n;
     }
 
     public void addWin() {
-        this.wins += 1;
+        wins = wins + 1;
+        played = played +1;
     }
 
     public void addLoss() {
-        this.losses += 1;
+        losses = losses + 1;
+        played = played + 1;
     }
 
-    public void addRubies(int rubies) {
-        this.rubies += rubies;
+    public void addRubies(int n) {
+        rubies = rubies + n;
     }
 }

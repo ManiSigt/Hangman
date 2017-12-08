@@ -16,6 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -33,7 +41,7 @@ public class Hangman extends AppCompatActivity {
     TextView hidden_view;
     EditText input_field, editText;
     Button inputbtn;
-    String word;
+    String word, username;
     User user;
     ImageView img;
 
@@ -42,6 +50,7 @@ public class Hangman extends AppCompatActivity {
     int score;
 
     DataBase db;
+    DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +58,12 @@ public class Hangman extends AppCompatActivity {
         new getData().execute();
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        String username = pref.getString("username", null); // getting String
+        username = pref.getString("username", null); // getting String
 
+        dbRef = FirebaseDatabase.getInstance().getReference();
         db = new DataBase();
         db.userExist(username);
-        user = db.getUser();
+        getUser();
 
         int difficulty = getIntent().getIntExtra("msg", 1);
 
@@ -76,7 +86,6 @@ public class Hangman extends AppCompatActivity {
         List<User> list = db.getHighscoreList();
 
         img = findViewById(R.id.imageView);
-        db.saveUser(user);
         if(difficulty == 1){
             MAX_TRIES = 9;
             score = 1000;
@@ -88,6 +97,25 @@ public class Hangman extends AppCompatActivity {
             score = 3000;
         }
 
+    }
+
+    public void getUser(){
+        DatabaseReference ref = dbRef.child("users");
+        Query userQuery = ref.orderByChild(username);
+
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    user = singleSnapshot.getValue(User.class);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled: ", "cancel.");
+                user.setName("nope");
+            }
+        });
     }
 
     public void takeGuess (View view){
@@ -219,7 +247,6 @@ public class Hangman extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        user.addScore(250);
         db.saveUser(user);
     }
 
