@@ -73,28 +73,7 @@ public class Hangman extends AppCompatActivity {
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
-
-        //database instance
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        getUserFromDatabase();
-        saveAndUpdateUserToDataBase();
-
-    }
-
-    //saves new user to database, overwrites old user
-    public void saveAndUpdateUserToDataBase(){
-        DatabaseReference ref = mDatabase.child("users");
-        user.setName(username);
-        ref.child(username).setValue(user);
-    }
-
-    //fá user úr database
-    public void getUserFromDatabase(){
-        DatabaseReference ref = mDatabase.child("users");
-        Query userQuery = ref.orderByChild(username);
-
-        List<User> list = db.getUserList();
+        List<User> list = db.getHighscoreList();
 
         img = findViewById(R.id.imageView);
         db.saveUser(user);
@@ -108,6 +87,7 @@ public class Hangman extends AppCompatActivity {
             MAX_TRIES = 3;
             score = 3000;
         }
+
     }
 
     public void takeGuess (View view){

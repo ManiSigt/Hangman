@@ -10,9 +10,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class DataBase {
@@ -77,18 +75,15 @@ public class DataBase {
         return user;
     }
 
-    public List<User> getUserList(){
+    public List<User> getHighscoreList(){
         users = new ArrayList<User>();
-        mDatabase.child("users").orderByChild("score").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("users").orderByChild("score").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int count = 0;
                 users = new ArrayList<User>(); // Result
                 for(DataSnapshot dsp : dataSnapshot.getChildren()){
-                    String key = dsp.getKey();
                     users.add(dsp.getValue(User.class));
-                    count = count +1;
                 }
             }
             @Override
@@ -97,9 +92,6 @@ public class DataBase {
             }
         });
 
-        for(int i = 0; i < users.size(); i++){
-            Log.d("user: ", users.get(i).getName());
-        }
         return users;
     }
 
