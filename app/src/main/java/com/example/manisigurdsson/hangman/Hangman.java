@@ -1,16 +1,15 @@
 package com.example.manisigurdsson.hangman;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,7 +38,7 @@ public class Hangman extends AppCompatActivity {
 
     TextView word_view;
     TextView hidden_view;
-    EditText input_field;
+    EditText input_field, editText;
     Button inputbtn;
     String word, username;
     User user = new User("");
@@ -63,6 +62,15 @@ public class Hangman extends AppCompatActivity {
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
+
+        MyKeyboard keyboard = findViewById(R.id.keyboard);
+
+        editText = findViewById(R.id.keyboard_input);
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+
+        InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
+        keyboard.setInputConnection(ic);
 
         //database instance
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -100,8 +108,8 @@ public class Hangman extends AppCompatActivity {
 
     public void takeGuess (View view){
     String guess = " ";
-    if(input_field.getText().toString().trim().length() != 0) {
-        guess = input_field.getText().toString().toLowerCase();
+    if(editText.getText().toString().trim().length() != 0) {
+        guess = editText.getText().toString().toLowerCase();
     }
     StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
     StringBuilder theWord = new StringBuilder(word);
@@ -126,7 +134,7 @@ public class Hangman extends AppCompatActivity {
             startActivity(intent);
         }
         hidden_view.setText(build_hidden);
-        input_field.setText("");
+        editText.setText("");
         if (tries == MAX_TRIES) {
             Toast.makeText(this, "Gengur betur næst!",
                     Toast.LENGTH_LONG).show();
