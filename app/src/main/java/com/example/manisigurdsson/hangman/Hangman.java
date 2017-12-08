@@ -4,18 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -23,14 +25,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
 
     TextView word_view;
     TextView hidden_view;
-    EditText input_field;
+    EditText input_field, editText;
     Button inputbtn;
     String word;
     User user;
@@ -63,6 +64,36 @@ public class Hangman extends AppCompatActivity {
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
 
+
+        MyKeyboard keyboard = findViewById(R.id.keyboard);
+
+        editText = findViewById(R.id.keyboard_input);
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+
+        InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
+        keyboard.setInputConnection(ic);
+
+        //database instance
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        getUserFromDatabase();
+        saveAndUpdateUserToDataBase();
+
+    }
+
+    //saves new user to database, overwrites old user
+    public void saveAndUpdateUserToDataBase(){
+        DatabaseReference ref = mDatabase.child("users");
+        user.setName(username);
+        ref.child(username).setValue(user);
+    }
+
+    //fá user úr database
+    public void getUserFromDatabase(){
+        DatabaseReference ref = mDatabase.child("users");
+        Query userQuery = ref.orderByChild(username);
+
         List<User> list = db.getUserList();
 
         img = findViewById(R.id.imageView);
@@ -77,13 +108,12 @@ public class Hangman extends AppCompatActivity {
             MAX_TRIES = 3;
             score = 3000;
         }
-
     }
 
     public void takeGuess (View view){
     String guess = " ";
-    if(input_field.getText().toString().trim().length() != 0) {
-        guess = input_field.getText().toString().toLowerCase();
+    if(editText.getText().toString().trim().length() != 0) {
+        guess = editText.getText().toString().toLowerCase();
     }
     StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
     StringBuilder theWord = new StringBuilder(word);
@@ -196,7 +226,7 @@ public class Hangman extends AppCompatActivity {
             startActivity(intent);
         }
         hidden_view.setText(build_hidden);
-        input_field.setText("");
+        editText.setText("");
         if (tries == MAX_TRIES) {
             user.addLoss(); //bæta við tapi
             Toast.makeText(this, "Gengur betur næst!",
