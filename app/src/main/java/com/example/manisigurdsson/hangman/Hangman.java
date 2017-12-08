@@ -3,35 +3,28 @@ package com.example.manisigurdsson.hangman;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
@@ -40,28 +33,37 @@ public class Hangman extends AppCompatActivity {
     TextView hidden_view;
     EditText input_field, editText;
     Button inputbtn;
-    String word, username;
-    User user = new User("");
+    String word;
+    User user;
+    ImageView img;
 
-    int MAX_TRIES = 10;
+    int MAX_TRIES;
     int tries = 0;
+    int score;
 
-    private DatabaseReference mDatabase;
+    DataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new getData().execute();
 
-        //get username from shared preferences
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        username = pref.getString("username", null); // getting String
+        String username = pref.getString("username", null); // getting String
+
+        db = new DataBase();
+        db.userExist(username);
+        user = db.getUser();
+
+        int difficulty = getIntent().getIntExtra("msg", 1);
+
 
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
+
 
         MyKeyboard keyboard = findViewById(R.id.keyboard);
 
@@ -92,18 +94,20 @@ public class Hangman extends AppCompatActivity {
         DatabaseReference ref = mDatabase.child("users");
         Query userQuery = ref.orderByChild(username);
 
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    user = singleSnapshot.getValue(User.class);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
-            }
-        });
+        List<User> list = db.getUserList();
+
+        img = findViewById(R.id.imageView);
+        db.saveUser(user);
+        if(difficulty == 1){
+            MAX_TRIES = 9;
+            score = 1000;
+        }else if (difficulty == 2){
+            MAX_TRIES = 6;
+            score = 2000;
+        }else{
+            MAX_TRIES = 3;
+            score = 3000;
+        }
     }
 
     public void takeGuess (View view){
@@ -118,16 +122,104 @@ public class Hangman extends AppCompatActivity {
             Toast.makeText(this, "Ekki rétt",
                     Toast.LENGTH_SHORT).show();
             tries++;
+            if(MAX_TRIES == 9) {
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman2);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman6);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 7) {
+                    img.setImageResource(R.drawable.hangman8);
+                } else if (tries == 8) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 9) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else if(MAX_TRIES == 6){
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else{
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }
         }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
             tries++;
+            if(MAX_TRIES == 9) {
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman2);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman6);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 7) {
+                    img.setImageResource(R.drawable.hangman8);
+                } else if (tries == 8) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 9) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else if(MAX_TRIES == 6){
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman4);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman5);
+                } else if (tries == 4) {
+                    img.setImageResource(R.drawable.hangman7);
+                } else if (tries == 5) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 6) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }else{
+                if (tries == 1) {
+                    img.setImageResource(R.drawable.hangman3);
+                } else if (tries == 2) {
+                    img.setImageResource(R.drawable.hangman9);
+                } else if (tries == 3) {
+                    img.setImageResource(R.drawable.hangman10);
+                }
+            }
         }
         else {
             Toast.makeText(this, "Rétt!" ,
                     Toast.LENGTH_SHORT).show();
         }
         if (build_hidden.toString().equals(theWord.toString())) {
+            user.addWin();
+            user.addScore(score/word.length());
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Hangman.this, Menu.class);
@@ -136,6 +228,7 @@ public class Hangman extends AppCompatActivity {
         hidden_view.setText(build_hidden);
         editText.setText("");
         if (tries == MAX_TRIES) {
+            user.addLoss(); //bæta við tapi
             Toast.makeText(this, "Gengur betur næst!",
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Hangman.this, Menu.class);
@@ -143,6 +236,12 @@ public class Hangman extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        user.addScore(250);
+        db.saveUser(user);
+    }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
         int correctChars = 0;
@@ -198,8 +297,6 @@ public class Hangman extends AppCompatActivity {
             new getTranslation().execute();
         }
     }
-
-
 
     public class getTranslation extends AsyncTask <String, String, String> {
         HttpsURLConnection conn;
