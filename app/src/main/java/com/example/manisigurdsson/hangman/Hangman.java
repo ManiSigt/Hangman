@@ -83,7 +83,6 @@ public class Hangman extends AppCompatActivity {
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
-        List<User> list = db.getHighscoreList();
 
         img = findViewById(R.id.imageView);
         if(difficulty == 1){
