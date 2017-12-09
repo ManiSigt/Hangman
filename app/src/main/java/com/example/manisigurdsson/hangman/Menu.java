@@ -19,19 +19,19 @@ public class Menu extends AppCompatActivity {
         key = 0;
     }
 
-    public void ClickedTwoPlayer(View view) {
+    public void clickedTwoPlayer(View view) {
         Intent intent = new Intent(this, TwoPlayerOptions.class);
         startActivity(intent);
 
     }
 
-    public void ClickedOptions(View view) {
+    public void clickedOptions(View view) {
         Intent intent = new Intent(this, Options.class);
         intent.putExtra("onOrOFf", key);
         startActivityForResult(intent, REQ_ID);
     }
 
-    public void ClickedSinglePlayer(View view) {
+    public void clickedSinglePlayer(View view) {
         Intent intent = new Intent(this, DifficultySettings.class);
         startActivity(intent);
 
@@ -56,5 +56,15 @@ public class Menu extends AppCompatActivity {
             Toast.makeText(this, "Villa!",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void clickedHighscore(View view) {
+        Intent intent = new Intent(this, HighScoreActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickedStats(View view) {
+        Intent intent = new Intent(this, StatsActivity.class);
+        startActivity(intent);
     }
 }
