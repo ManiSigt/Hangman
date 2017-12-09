@@ -53,27 +53,6 @@ public class DataBase {
         });
     }
 
-    //fá user úr database
-    public User getUser(){
-        DatabaseReference ref = mDatabase.child("users");
-        Query userQuery = ref.orderByChild(username);
-
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    user = singleSnapshot.getValue(User.class);
-                    Log.d("getUser: ", user.getName() + " " + user.getScore());
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
-                user.setName("nope");
-            }
-        });
-        return user;
-    }
 
     public List<User> getHighscoreList(){
         users = new ArrayList<User>();
