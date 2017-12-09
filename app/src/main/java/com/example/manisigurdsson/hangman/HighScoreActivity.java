@@ -3,14 +3,18 @@ package com.example.manisigurdsson.hangman;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -20,6 +24,9 @@ import java.util.List;
 public class HighScoreActivity extends AppCompatActivity {
 
     List<User> users;
+    String name;
+    User user = new User();
+
     //database reference
     private DatabaseReference mDatabase;
 
@@ -64,22 +71,48 @@ public class HighScoreActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, personList );
 
         lv.setAdapter(arrayAdapter);
-                /*lv.setOnItemClickListener(new OnItemClickListener() {
+                lv.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                        String name = adapter.getItemAtPosition(position).toString();
 
-                        Person p = map.getPerson(name);
-                        setContentView(R.layout.view);
+                        name = adapter.getItemAtPosition(position).toString();
+                        name = name.replaceAll("[0-9]","");
+                        name = name.substring(0, name.length()-1);
 
-                        TextView viewName = findViewById(R.id.viewName);
-                        TextView viewAddress = findViewById(R.id.viewAddress);
-                        TextView viewPhone = findViewById(R.id.viewPhone);
-
-                        viewName.setText(p.name);
-                        viewAddress.setText(p.address);
-                        viewPhone.setText(p.phone);
+                        populateStatsView(name);
                     }
-                });*/
+                });
+    }
+
+    private void populateStatsView(String name) {
+
+        Query userQuery = mDatabase.child("users").orderByChild(name);
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    user = singleSnapshot.getValue(User.class);
+                    Log.d("name", user.getName());
+
+                    setContentView(R.layout.activity_stats);
+
+                    TextView userWins = findViewById(R.id.stats_wins);
+                    TextView userLosses = findViewById(R.id.stats_losses);
+                    TextView userPlayed = findViewById(R.id.stats_played);
+                    TextView userWinpercent = findViewById(R.id.stats_winpercent);
+
+                    userWins.setText("" +user.getWins());
+                    userLosses.setText("" +user.getLosses());
+                    userPlayed.setText("" +user.getPlayed());
+                    double played = ((double)user.getWins()/user.getPlayed())*100;
+                    userWinpercent.setText(String.format( "%.2f",played));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled: ", "cancel.");
+                user.setName("nope");
+            }
+        });
     }
 }
