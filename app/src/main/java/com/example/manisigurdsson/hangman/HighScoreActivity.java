@@ -79,21 +79,22 @@ public class HighScoreActivity extends AppCompatActivity {
                         name = name.replaceAll("[0-9]","");
                         name = name.substring(0, name.length()-1);
 
-                        populateStatsView(name);
+                        populateStatsView();
                     }
                 });
     }
 
-    private void populateStatsView(String name) {
+    private void populateStatsView() {
 
-        Query userQuery = mDatabase.child("users").orderByChild(name);
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref = mDatabase.child("users");
+        Query getUserQuery = ref.orderByChild(name);
+
+        getUserQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    user = singleSnapshot.getValue(User.class);
-                    Log.d("name", user.getName());
 
+                user = dataSnapshot.child(name).getValue(User.class);
+                Log.d("name:", "|" + user.getName()+"|"+ name);
                     setContentView(R.layout.activity_stats);
 
                     TextView userWins = findViewById(R.id.stats_wins);
@@ -106,7 +107,8 @@ public class HighScoreActivity extends AppCompatActivity {
                     userPlayed.setText("" +user.getPlayed());
                     double played = ((double)user.getWins()/user.getPlayed())*100;
                     userWinpercent.setText(String.format( "%.2f",played));
-                }
+
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -116,3 +118,4 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 }
+
