@@ -48,9 +48,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     users.add(dsp.getValue(User.class));
                 }
-
                 populateHighscore();
-
             }
 
             @Override
@@ -94,21 +92,22 @@ public class HighScoreActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 user = dataSnapshot.child(name).getValue(User.class);
-                Log.d("name:", "|" + user.getName()+"|"+ name);
-                    setContentView(R.layout.activity_stats);
+                setContentView(R.layout.activity_stats);
 
-                    TextView userWins = findViewById(R.id.stats_wins);
-                    TextView userLosses = findViewById(R.id.stats_losses);
-                    TextView userPlayed = findViewById(R.id.stats_played);
-                    TextView userWinpercent = findViewById(R.id.stats_winpercent);
+                TextView userWins = findViewById(R.id.stats_wins);
+                TextView userLosses = findViewById(R.id.stats_losses);
+                TextView userPlayed = findViewById(R.id.stats_played);
+                TextView userWinpercent = findViewById(R.id.stats_winpercent);
+                TextView userName = findViewById(R.id.stats_name);
+                TextView userScore = findViewById(R.id.stats_score);
 
-                    userWins.setText("" +user.getWins());
-                    userLosses.setText("" +user.getLosses());
-                    userPlayed.setText("" +user.getPlayed());
-                    double played = ((double)user.getWins()/user.getPlayed())*100;
-                    userWinpercent.setText(String.format( "%.2f",played));
-
-
+                userName.setText(user.getName());
+                userScore.setText("" +user.getScore());
+                userWins.setText("" +user.getWins());
+                userLosses.setText("" +user.getLosses());
+                userPlayed.setText("" +user.getPlayed());
+                double played = ((double)user.getWins()/user.getPlayed())*100;
+                userWinpercent.setText(String.format( "%.2f",played));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
