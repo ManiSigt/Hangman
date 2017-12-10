@@ -229,6 +229,7 @@ public class Hangman extends AppCompatActivity {
             user.addScore(score/word.length());
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
+            user.addRubies(100000);
             Intent intent = new Intent(Hangman.this, Menu.class);
             startActivity(intent);
         }
@@ -262,6 +263,26 @@ public class Hangman extends AppCompatActivity {
         }
         return correctChars;
     }
+
+    public void hintClick(View view) {
+        StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
+        char correct = ' ';
+        if(user.getRubies() > 0){
+            user.removeRubies(1);
+            for (int i = 0; i < word.length(); i++){
+                if(hidden_view.getText().toString().charAt(i) == '-'){
+                    correct = hidden_view.getText().toString().charAt(i);
+                    Toast.makeText(this, "RASSGAT",
+                            Toast.LENGTH_LONG).show();
+                    break;
+                }
+            }
+            Toast.makeText(this, "PUNGZ",
+                    Toast.LENGTH_LONG).show();
+            guess(build_hidden, word, correct);
+        }
+    }
+
     public class getData extends AsyncTask<String, String, String> {
 
         HttpURLConnection urlConnection;

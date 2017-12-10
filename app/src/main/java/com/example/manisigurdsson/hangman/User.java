@@ -63,4 +63,5 @@ public class User {
     public void addRubies(int n) {
         rubies = rubies + n;
     }
+    public void removeRubies(int rubies) {this.rubies -= rubies;}
 }
