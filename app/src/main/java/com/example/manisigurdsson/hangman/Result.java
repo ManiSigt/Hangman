@@ -25,7 +25,7 @@ public class Result extends AppCompatActivity {
             scorewinorloss.setText("þú færð engin stig");
             stig.setText(" ");
         }else {
-            stig.setText(stigin);
+            stig.setText(Integer.toString(stigin));
         }
     }
 
