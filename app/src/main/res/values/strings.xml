@@ -24,4 +24,5 @@
     <string name="win">Win %:</string>
     <string name="_0">0</string>
     <string name="score">Score:</string>
+    <string name="hint">hint</string>
 </resources>

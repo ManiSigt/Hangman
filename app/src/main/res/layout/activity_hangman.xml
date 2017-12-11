@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
@@ -61,6 +62,15 @@
             android:layout_margin="5dp"
             android:onClick="takeGuess"
             android:text="Guess" />
+          
+              <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="364dp"
+        android:text="@string/hint"
+        android:onClick="hintClick"/>
+          
         </LinearLayout>
 
 
