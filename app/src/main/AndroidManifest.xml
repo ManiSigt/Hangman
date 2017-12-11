@@ -30,7 +30,8 @@
         <activity android:name=".Options" />
         <activity android:name=".TwoPlayerOptions" />
         <activity android:name=".Hangman2player" />
-        <activity android:name=".DifficultySettings"></activity>
+        <activity android:name=".DifficultySettings" />
+        <activity android:name=".Result"></activity>
     </application>
 
 </manifest>
