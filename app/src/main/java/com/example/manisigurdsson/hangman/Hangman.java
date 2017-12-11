@@ -142,16 +142,16 @@ public class Hangman extends AppCompatActivity {
 
     public void takeGuess (View view){
     String guess = " ";
-    /*if(editText.getText().toString().trim().length() != 0) {
+    if(editText.getText().toString().trim().length() != 0) {
         guess = editText.getText().toString().toLowerCase();
-    }*//*
+    }/*
     Log.d("TAAAKKEEGGGUUEESS==", s);*/
     StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
     StringBuilder theWord = new StringBuilder(word);
     /*if(s != null) {
 
 */
-        char guessChar = word.charAt(0);
+        char guessChar = guess.charAt(0);
         if (guessChar == 'A') {
             String str = "A";
             Log.d("GGUUEESSCCHHAARR==", str);
