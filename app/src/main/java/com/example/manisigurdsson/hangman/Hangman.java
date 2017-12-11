@@ -82,7 +82,7 @@ public class Hangman extends AppCompatActivity {
         editText = findViewById(R.id.keyboard_input);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
-        editText.addTextChangedListener(new TextWatcher() {
+       /* editText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -102,7 +102,7 @@ public class Hangman extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 editText.setText(" ");
             }
-        });
+        });*/
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
@@ -140,18 +140,18 @@ public class Hangman extends AppCompatActivity {
         });
     }
 
-    public void takeGuess (String s){
+    public void takeGuess (View view){
     String guess = " ";
     /*if(editText.getText().toString().trim().length() != 0) {
         guess = editText.getText().toString().toLowerCase();
-    }*/
-    Log.d("TAAAKKEEGGGUUEESS==", s);
+    }*//*
+    Log.d("TAAAKKEEGGGUUEESS==", s);*/
     StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
     StringBuilder theWord = new StringBuilder(word);
-    if(s != null) {
+    /*if(s != null) {
 
-
-        char guessChar = s.charAt(0);
+*/
+        char guessChar = word.charAt(0);
         if (guessChar == 'A') {
             String str = "A";
             Log.d("GGUUEESSCCHHAARR==", str);
@@ -273,7 +273,7 @@ public class Hangman extends AppCompatActivity {
             Intent intent = new Intent(Hangman.this, Menu.class);
             startActivity(intent);
         }
-    }
+
 }
 
     @Override
