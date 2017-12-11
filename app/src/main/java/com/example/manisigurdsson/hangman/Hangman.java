@@ -229,6 +229,7 @@ public class Hangman extends AppCompatActivity {
             user.addScore(score/word.length());
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
+            user.addRubies(100000);
             Intent intent = new Intent(Hangman.this, Menu.class);
             startActivity(intent);
         }
@@ -262,6 +263,23 @@ public class Hangman extends AppCompatActivity {
         }
         return correctChars;
     }
+
+    public void hintClick(View view) {
+        char correct;
+        //if(user.getRubies() > 0 ) {
+            for (int i = 0; i < word.length(); i++) {
+                if (hidden_view.getText().toString().charAt(i) == '-') {
+                    correct = word.charAt(i);
+                    Toast.makeText(this, "Prófaðu þennan staf : " + correct,
+                            Toast.LENGTH_LONG).show();
+                    //user.removeRubies(1);
+                    break;
+                }
+            }
+        //}
+
+    }
+
     public class getData extends AsyncTask<String, String, String> {
 
         HttpURLConnection urlConnection;
@@ -295,8 +313,10 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             try {
+
                 JSONObject j = new JSONObject(result);
                 word  = (String) j.get("word");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

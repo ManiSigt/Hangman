@@ -72,6 +72,14 @@
         android:id="@+id/keyboard_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="364dp"
+        android:text="@string/hint"
+        android:onClick="hintClick"/>
+
 
     <com.example.manisigurdsson.hangman.MyKeyboard
         android:id="@+id/keyboard"
