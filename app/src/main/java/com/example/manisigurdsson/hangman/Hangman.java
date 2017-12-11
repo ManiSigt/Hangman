@@ -265,22 +265,19 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void hintClick(View view) {
-        StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
-        char correct = ' ';
-        if(user.getRubies() > 0){
-            user.removeRubies(1);
-            for (int i = 0; i < word.length(); i++){
-                if(hidden_view.getText().toString().charAt(i) == '-'){
-                    correct = hidden_view.getText().toString().charAt(i);
-                    Toast.makeText(this, "RASSGAT",
+        char correct;
+        //if(user.getRubies() > 0 ) {
+            for (int i = 0; i < word.length(); i++) {
+                if (hidden_view.getText().toString().charAt(i) == '-') {
+                    correct = word.charAt(i);
+                    Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
+                    //user.removeRubies(1);
                     break;
                 }
             }
-            Toast.makeText(this, "PUNGZ",
-                    Toast.LENGTH_LONG).show();
-            guess(build_hidden, word, correct);
-        }
+        //}
+
     }
 
     public class getData extends AsyncTask<String, String, String> {
@@ -316,8 +313,10 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             try {
+
                 JSONObject j = new JSONObject(result);
                 word  = (String) j.get("word");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
