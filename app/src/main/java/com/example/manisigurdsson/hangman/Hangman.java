@@ -389,7 +389,8 @@ public class Hangman extends AppCompatActivity {
             try{
                 String json = new JSONObject(result)
                         .getJSONArray("text").getString(0);
-                word = json;
+                String arr[] = json.split(" ");
+                word = arr[0];
                 word_view.setText(word);
                 String build_hidden = "";
                 for(int i = 0; i < word.length(); i++){
