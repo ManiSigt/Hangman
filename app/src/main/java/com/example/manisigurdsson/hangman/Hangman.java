@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -80,6 +82,27 @@ public class Hangman extends AppCompatActivity {
         editText = findViewById(R.id.keyboard_input);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
+       /* editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String buttonText = editText.getText().toString();
+                if(buttonText != null) {
+                    Log.d("KEEEYYYBBBOARDD==", buttonText );
+                    takeGuess(buttonText);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editText.setText(" ");
+            }
+        });*/
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
@@ -118,18 +141,28 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void takeGuess (View view){
-        String guess = " ";
-        if(editText.getText().toString().trim().length() != 0) {
-            guess = editText.getText().toString().toLowerCase();
+
+    String guess = " ";
+    /*if(editText.getText().toString().trim().length() != 0) {
+        guess = editText.getText().toString().toLowerCase();
+    }*//*
+    Log.d("TAAAKKEEGGGUUEESS==", s);*/
+    StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
+    StringBuilder theWord = new StringBuilder(word);
+    /*if(s != null) {
+
+*/
+        char guessChar = word.charAt(0);
+        if (guessChar == 'A') {
+            String str = "A";
+            Log.d("GGUUEESSCCHHAARR==", str);
         }
-        StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
-        StringBuilder theWord = new StringBuilder(word);
-        char guessChar = guess.charAt(0);
+
         if (guessChar == ' ') {
             Toast.makeText(this, "Ekki rétt",
                     Toast.LENGTH_SHORT).show();
             tries++;
-            if(MAX_TRIES == 9) {
+            if (MAX_TRIES == 9) {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman2);
                 } else if (tries == 2) {
@@ -149,7 +182,7 @@ public class Hangman extends AppCompatActivity {
                 } else if (tries == 9) {
                     img.setImageResource(R.drawable.hangman10);
                 }
-            }else if(MAX_TRIES == 6){
+            } else if (MAX_TRIES == 6) {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman3);
                 } else if (tries == 2) {
@@ -163,7 +196,7 @@ public class Hangman extends AppCompatActivity {
                 } else if (tries == 6) {
                     img.setImageResource(R.drawable.hangman10);
                 }
-            }else{
+            } else {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman3);
                 } else if (tries == 2) {
@@ -172,11 +205,11 @@ public class Hangman extends AppCompatActivity {
                     img.setImageResource(R.drawable.hangman10);
                 }
             }
-        }else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
+        } else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
             tries++;
-            if(MAX_TRIES == 9) {
+            if (MAX_TRIES == 9) {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman2);
                 } else if (tries == 2) {
@@ -196,7 +229,7 @@ public class Hangman extends AppCompatActivity {
                 } else if (tries == 9) {
                     img.setImageResource(R.drawable.hangman10);
                 }
-            }else if(MAX_TRIES == 6){
+            } else if (MAX_TRIES == 6) {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman3);
                 } else if (tries == 2) {
@@ -210,7 +243,7 @@ public class Hangman extends AppCompatActivity {
                 } else if (tries == 6) {
                     img.setImageResource(R.drawable.hangman10);
                 }
-            }else{
+            } else {
                 if (tries == 1) {
                     img.setImageResource(R.drawable.hangman3);
                 } else if (tries == 2) {
@@ -219,15 +252,15 @@ public class Hangman extends AppCompatActivity {
                     img.setImageResource(R.drawable.hangman10);
                 }
             }
-        }
-        else {
-            Toast.makeText(this, "Rétt!" ,
+        } else {
+            Toast.makeText(this, "Rétt!",
                     Toast.LENGTH_SHORT).show();
         }
         if (build_hidden.toString().equals(theWord.toString())) {
             user.addWin();
             user.addScore(score/word.length());
             user.addRubies(100000);
+
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Hangman.this, Result.class);
@@ -248,7 +281,8 @@ public class Hangman extends AppCompatActivity {
             intent.putExtra("winorloss", 0);
             startActivity(intent);
         }
-    }
+
+}
 
     @Override
     protected void onStop() {
@@ -337,7 +371,7 @@ public class Hangman extends AppCompatActivity {
 
             StringBuilder result = new StringBuilder();
             try {
-                String urlStr = "https://glosbe.com/gapi/translate?from=eng&dest=isl&phrase=" + word + "&tm=false&format=json";
+                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text=house%20bridge%20attempt%20snow%20holy%20tuna&lang=en-is";
 
                 URL url = new URL(urlStr);
 
@@ -355,16 +389,16 @@ public class Hangman extends AppCompatActivity {
                 conn.disconnect();
             }
             return result.toString();
+
         }
 
         @Override
         protected void onPostExecute(String result) {
             try{
-                JSONObject json = new JSONObject(result)
-                        .getJSONArray("tuc")
-                        .getJSONObject(0)
-                        .getJSONObject("phrase");
-                word = (String) json.get("text");
+                String json = new JSONObject(result)
+                        .getJSONArray("text").getString(0);
+                String arr[] = json.split(" ");
+                word = arr[0];
                 word_view.setText(word);
                 String build_hidden = "";
                 for(int i = 0; i < word.length(); i++){
