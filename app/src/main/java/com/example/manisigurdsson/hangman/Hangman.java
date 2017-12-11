@@ -148,136 +148,98 @@ public class Hangman extends AppCompatActivity {
         });
     }
 
-    public void takeGuess (String s){
-    //editText.setText("");
-    Log.d("TAAAKKEEGGGUUEESS==", s);
-    StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
-    StringBuilder theWord = new StringBuilder(word);
-    if(s != null) {
-        char guessChar = s.charAt(0);
-        if (guessChar == 'A') {
-            String str = "A";
-            Log.d("GGUUEESSCCHHAARR==", str);
-        }
 
-        /*if (guessChar == ' ') {
-            Toast.makeText(this, "Ekki rétt",
-                    Toast.LENGTH_SHORT).show();
-            tries++;
-            if (MAX_TRIES == 9) {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman2);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman4);
-                } else if (tries == 4) {
-                    img.setImageResource(R.drawable.hangman5);
-                } else if (tries == 5) {
-                    img.setImageResource(R.drawable.hangman6);
-                } else if (tries == 6) {
-                    img.setImageResource(R.drawable.hangman7);
-                } else if (tries == 7) {
-                    img.setImageResource(R.drawable.hangman8);
-                } else if (tries == 8) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 9) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            } else if (MAX_TRIES == 6) {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman4);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman5);
-                } else if (tries == 4) {
-                    img.setImageResource(R.drawable.hangman7);
-                } else if (tries == 5) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 6) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            } else {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            }
-        }*/ if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
-            Toast.makeText(this, "Ekki rétt ",
-                    Toast.LENGTH_SHORT).show();
-            tries++;
-            if (MAX_TRIES == 9) {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman2);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman4);
-                } else if (tries == 4) {
-                    img.setImageResource(R.drawable.hangman5);
-                } else if (tries == 5) {
-                    img.setImageResource(R.drawable.hangman6);
-                } else if (tries == 6) {
-                    img.setImageResource(R.drawable.hangman7);
-                } else if (tries == 7) {
-                    img.setImageResource(R.drawable.hangman8);
-                } else if (tries == 8) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 9) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            } else if (MAX_TRIES == 6) {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman4);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman5);
-                } else if (tries == 4) {
-                    img.setImageResource(R.drawable.hangman7);
-                } else if (tries == 5) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 6) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            } else {
-                if (tries == 1) {
-                    img.setImageResource(R.drawable.hangman3);
-                } else if (tries == 2) {
-                    img.setImageResource(R.drawable.hangman9);
-                } else if (tries == 3) {
-                    img.setImageResource(R.drawable.hangman10);
-                }
-            }
-        } else {
-            Toast.makeText(this, "Rétt!",
-                    Toast.LENGTH_SHORT).show();
-        }
-        if (build_hidden.toString().equals(theWord.toString())) {
-            user.addWin();
-            user.addScore(score / word.length());
-            Toast.makeText(this, "Sigurvegari!",
-                    Toast.LENGTH_SHORT).show();
-            user.addRubies(100000);
-            Intent intent = new Intent(Hangman.this, Menu.class);
-            startActivity(intent);
-        }
-        hidden_view.setText(build_hidden);
+    public void takeGuess (String s){
         //editText.setText("");
-        if (tries == MAX_TRIES) {
-            user.addLoss(); //bæta við tapi
-            Toast.makeText(this, "Gengur betur næst!",
-                    Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Hangman.this, Menu.class);
-            startActivity(intent);
+        Log.d("TAAAKKEEGGGUUEESS==", s);
+
+        StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
+        StringBuilder theWord = new StringBuilder(word);
+        if(s != null) {
+            char guessChar = s.charAt(0);
+            if (guessChar == 'A') {
+                String str = "A";
+                Log.d("GGUUEESSCCHHAARR==", str);
+            }
+
+            if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
+                Toast.makeText(this, "Ekki rétt ",
+                        Toast.LENGTH_SHORT).show();
+                tries++;
+                if (MAX_TRIES == 9) {
+                    if (tries == 1) {
+                        img.setImageResource(R.drawable.hangman2);
+                    } else if (tries == 2) {
+                        img.setImageResource(R.drawable.hangman3);
+                    } else if (tries == 3) {
+                        img.setImageResource(R.drawable.hangman4);
+                    } else if (tries == 4) {
+                        img.setImageResource(R.drawable.hangman5);
+                    } else if (tries == 5) {
+                        img.setImageResource(R.drawable.hangman6);
+                    } else if (tries == 6) {
+                        img.setImageResource(R.drawable.hangman7);
+                    } else if (tries == 7) {
+                        img.setImageResource(R.drawable.hangman8);
+                    } else if (tries == 8) {
+                        img.setImageResource(R.drawable.hangman9);
+                    } else if (tries == 9) {
+                        img.setImageResource(R.drawable.hangman10);
+                    }
+                } else if (MAX_TRIES == 6) {
+                    if (tries == 1) {
+                        img.setImageResource(R.drawable.hangman3);
+                    } else if (tries == 2) {
+                        img.setImageResource(R.drawable.hangman4);
+                    } else if (tries == 3) {
+                        img.setImageResource(R.drawable.hangman5);
+                    } else if (tries == 4) {
+                        img.setImageResource(R.drawable.hangman7);
+                    } else if (tries == 5) {
+                        img.setImageResource(R.drawable.hangman9);
+                    } else if (tries == 6) {
+                        img.setImageResource(R.drawable.hangman10);
+                    }
+                } else {
+                    if (tries == 1) {
+                        img.setImageResource(R.drawable.hangman3);
+                    } else if (tries == 2) {
+                        img.setImageResource(R.drawable.hangman9);
+                    } else if (tries == 3) {
+                        img.setImageResource(R.drawable.hangman10);
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Rétt!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (build_hidden.toString().equals(theWord.toString())) {
+                user.addWin();
+                user.addScore(score/word.length());
+                user.addRubies(100000);
+
+                Toast.makeText(this, "Sigurvegari!",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Hangman.this, Result.class);
+                intent.putExtra("word", word);
+                intent.putExtra("score", score/word.length());
+                intent.putExtra("winorloss", 1);
+                startActivity(intent);
+            }
+            hidden_view.setText(build_hidden);
+            //editText.setText("");
+            if (tries == MAX_TRIES) {
+                user.addLoss(); //bæta við tapi
+                Toast.makeText(this, "Gengur betur næst!",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Hangman.this, Result.class);
+                intent.putExtra("word", word);
+                intent.putExtra("score", 0);
+                intent.putExtra("winorloss", 0);
+                startActivity(intent);
+            }
         }
     }
-}
 
     @Override
     protected void onStop() {
