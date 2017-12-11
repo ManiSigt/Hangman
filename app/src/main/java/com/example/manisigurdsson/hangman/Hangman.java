@@ -141,6 +141,7 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void takeGuess (View view){
+
     String guess = " ";
     /*if(editText.getText().toString().trim().length() != 0) {
         guess = editText.getText().toString().toLowerCase();
@@ -257,11 +258,15 @@ public class Hangman extends AppCompatActivity {
         }
         if (build_hidden.toString().equals(theWord.toString())) {
             user.addWin();
-            user.addScore(score / word.length());
+            user.addScore(score/word.length());
+            user.addRubies(100000);
+
             Toast.makeText(this, "Sigurvegari!",
                     Toast.LENGTH_SHORT).show();
-            user.addRubies(100000);
-            Intent intent = new Intent(Hangman.this, Menu.class);
+            Intent intent = new Intent(Hangman.this, Result.class);
+            intent.putExtra("word", word);
+            intent.putExtra("score", score/word.length());
+            intent.putExtra("winorloss", 1);
             startActivity(intent);
         }
         hidden_view.setText(build_hidden);
@@ -270,7 +275,10 @@ public class Hangman extends AppCompatActivity {
             user.addLoss(); //bæta við tapi
             Toast.makeText(this, "Gengur betur næst!",
                     Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Hangman.this, Menu.class);
+            Intent intent = new Intent(Hangman.this, Result.class);
+            intent.putExtra("word", word);
+            intent.putExtra("score", 0);
+            intent.putExtra("winorloss", 0);
             startActivity(intent);
         }
 
