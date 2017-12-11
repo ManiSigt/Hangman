@@ -46,6 +46,7 @@ public class Hangman extends AppCompatActivity {
     String word, username;
     User user;
     ImageView img;
+    TextWatcher tw;
 
     int MAX_TRIES;
     int tries = 0;
@@ -82,27 +83,8 @@ public class Hangman extends AppCompatActivity {
         editText = findViewById(R.id.keyboard_input);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
-       /* editText.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String buttonText = editText.getText().toString();
-                if(buttonText != null) {
-                    Log.d("KEEEYYYBBBOARDD==", buttonText );
-                    takeGuess(buttonText);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                editText.setText(" ");
-            }
-        });*/
+        pushKey();
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
@@ -119,6 +101,32 @@ public class Hangman extends AppCompatActivity {
             score = 3000;
         }
 
+    }
+
+    public void pushKey() {
+        editText.addTextChangedListener(tw = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String buttonText = editText.getText().toString();
+                if(buttonText != null && buttonText != " " && buttonText != "") {
+                    Log.d("KEEEYYYBBBOARDD==", buttonText );
+                    takeGuess(buttonText);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editText.removeTextChangedListener(tw);
+                editText.setText("");
+                editText.addTextChangedListener(tw);
+            }
+        });
     }
 
     public void getUser(){
@@ -140,24 +148,19 @@ public class Hangman extends AppCompatActivity {
         });
     }
 
-    public void takeGuess (View view){
-    String guess = " ";
-    if(editText.getText().toString().trim().length() != 0) {
-        guess = editText.getText().toString().toLowerCase();
-    }/*
-    Log.d("TAAAKKEEGGGUUEESS==", s);*/
+    public void takeGuess (String s){
+    //editText.setText("");
+    Log.d("TAAAKKEEGGGUUEESS==", s);
     StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
     StringBuilder theWord = new StringBuilder(word);
-    /*if(s != null) {
-
-*/
-        char guessChar = guess.charAt(0);
+    if(s != null) {
+        char guessChar = s.charAt(0);
         if (guessChar == 'A') {
             String str = "A";
             Log.d("GGUUEESSCCHHAARR==", str);
         }
 
-        if (guessChar == ' ') {
+        /*if (guessChar == ' ') {
             Toast.makeText(this, "Ekki rétt",
                     Toast.LENGTH_SHORT).show();
             tries++;
@@ -204,7 +207,7 @@ public class Hangman extends AppCompatActivity {
                     img.setImageResource(R.drawable.hangman10);
                 }
             }
-        } else if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
+        }*/ if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
             Toast.makeText(this, "Ekki rétt ",
                     Toast.LENGTH_SHORT).show();
             tries++;
@@ -265,7 +268,7 @@ public class Hangman extends AppCompatActivity {
             startActivity(intent);
         }
         hidden_view.setText(build_hidden);
-        editText.setText("");
+        //editText.setText("");
         if (tries == MAX_TRIES) {
             user.addLoss(); //bæta við tapi
             Toast.makeText(this, "Gengur betur næst!",
@@ -273,7 +276,7 @@ public class Hangman extends AppCompatActivity {
             Intent intent = new Intent(Hangman.this, Menu.class);
             startActivity(intent);
         }
-
+    }
 }
 
     @Override
@@ -283,6 +286,10 @@ public class Hangman extends AppCompatActivity {
     }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
+
+        Log.d("HAAAAALLLLLOOOO", theWord);
+
+
         int correctChars = 0;
         for(int i = 0; i < word.length(); i++){
             if(guessChar == hiddenArray.charAt(i)){
@@ -291,6 +298,7 @@ public class Hangman extends AppCompatActivity {
             if(guessChar == theWord.charAt(i)){
                 hiddenArray.setCharAt(i, guessChar);
                 correctChars ++;
+                Log.d("CCCCCCOOORRRECCCT", "word");
             }
         }
         return correctChars;
