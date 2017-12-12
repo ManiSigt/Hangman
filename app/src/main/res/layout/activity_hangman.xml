@@ -46,7 +46,25 @@
                 android:layout_margin="5dp"
                 android:text="word"
                 android:textSize="24sp" />
-            <Button
+
+          
+
+            <ImageView
+                android:layout_width="25dp"
+                app:srcCompat="@drawable/ruby"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="ruby"
+                />
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="num"
+                android:textSize="24sp"
+                android:id="@+id/rubieid"/>
+          
+           <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="231dp"
