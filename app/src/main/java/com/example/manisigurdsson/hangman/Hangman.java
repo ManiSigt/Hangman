@@ -224,7 +224,7 @@ public class Hangman extends AppCompatActivity {
             if (build_hidden.toString().equals(theWord.toString())) {
                 user.addWin();
                 user.addScore(score/word.length());
-                user.addRubies(100000);
+                user.addRubies(1);
 
                 Toast.makeText(this, "Sigurvegari!",
                         Toast.LENGTH_SHORT).show();
@@ -287,7 +287,6 @@ public class Hangman extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     public class getData extends AsyncTask<String, String, String> {
@@ -424,7 +423,6 @@ public class Hangman extends AppCompatActivity {
                 new getData().execute();
             }
         }
-
     }
     public void getRuby(){
         DatabaseReference ref = dbRef.child("users");
