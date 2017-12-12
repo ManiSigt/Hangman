@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 public class Hangman2player extends AppCompatActivity {
 
-    TextView word_view;
     TextView hidden_view;
     EditText input_field;
     String word;
@@ -27,16 +26,15 @@ public class Hangman2player extends AppCompatActivity {
     ImageView img;
     String p1name, p2name;
 
-
     int MAX_TRIES = 9;
     int tries = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman2player);
 
         img = findViewById(R.id.imageView);
-        word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
         word = getIntent().getStringExtra("secret");
         p1name = getIntent().getStringExtra("p1");
@@ -48,7 +46,6 @@ public class Hangman2player extends AppCompatActivity {
             hidden += "-";
         }
         hidden_view.setText(hidden);
-        word_view.setText(word);
         MyKeyboard keyboard = findViewById(R.id.keyboard);
 
         input_field = findViewById(R.id.keyboard_input);
