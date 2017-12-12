@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -44,34 +44,34 @@
                 app:srcCompat="@drawable/ruby_burned_burned" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="241dp"
-            android:layout_margin="5dp"
-            android:contentDescription="hangmanPic"
-            app:srcCompat="@drawable/hangman1_burned" />
-
-        <TextView
-            android:id="@+id/hidden"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="hidden"
-            android:textSize="24sp" />
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="hangmanPic"
+                app:srcCompat="@drawable/hangman1_burned" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_margin="20dp">
 
             <TextView
-                android:id="@+id/word"
+                android:id="@+id/hidden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="word"
+                android:text="hidden"
                 android:textSize="24sp" />
 
             <Button
@@ -92,11 +92,16 @@
                 android:visibility="invisible" />
         </LinearLayout>
 
-        <com.example.manisigurdsson.hangman.MyKeyboard
-            android:id="@+id/keyboard"
-            android:layout_width="wrap_content"
-            android:layout_height="167dp"
-            android:orientation="vertical" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.example.manisigurdsson.hangman.MyKeyboard
+                android:id="@+id/keyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
 
