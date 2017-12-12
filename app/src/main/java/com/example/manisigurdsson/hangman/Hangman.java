@@ -327,7 +327,7 @@ public class Hangman extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if(result == "no-need"){
                 if(words.size() != 0){
-                    word = words.get(0);
+                    word = words.get(0).toLowerCase();
                     words = words.subList(1, words.size());
                     word_view.setText(word);
                     String build_hidden = "";
