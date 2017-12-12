@@ -83,7 +83,7 @@ public class MenuTest {
     }
     @Test
     public void testHighscores(){
-        ViewInteraction btn = onView(withId(R.id.twoPlayerID));
+        ViewInteraction btn = onView(withId(R.id.highscoreID));
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(HighScoreActivity.class.getName(), null, false);
 
         btn.perform(click());
@@ -95,7 +95,7 @@ public class MenuTest {
     }
     @Test
     public void testStats(){
-        ViewInteraction btn = onView(withId(R.id.twoPlayerID));
+        ViewInteraction btn = onView(withId(R.id.statsID));
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(StatsActivity.class.getName(), null, false);
 
         btn.perform(click());
