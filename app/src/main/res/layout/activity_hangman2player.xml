@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bakgrunnur3"
     tools:context="com.example.manisigurdsson.hangman.Hangman2player">
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:layout_height="241dp"
             android:layout_margin="5dp"
             android:contentDescription="hangmanPic"
-            app:srcCompat="@drawable/hangman1" />
+            app:srcCompat="@drawable/hangman1_burned" />
 
         <TextView
             android:id="@+id/hidden"
@@ -55,6 +56,7 @@
                 tools:layout_editor_absoluteY="364dp"
                 android:text="@string/hint"
                 android:onClick="hintClick"/>
+
             <EditText
                 android:id="@+id/keyboard_input"
                 android:layout_width="wrap_content"
