@@ -41,8 +41,7 @@ public class Hangman extends AppCompatActivity {
 
     TextView word_view;
     TextView hidden_view;
-    EditText input_field, editText;
-    Button inputbtn;
+    EditText editText;
     String word, username;
     User user;
     ImageView img;
@@ -74,8 +73,6 @@ public class Hangman extends AppCompatActivity {
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
-        input_field = findViewById(R.id.input_field);
-        inputbtn = findViewById(R.id.btn_guess);
 
 
         MyKeyboard keyboard = findViewById(R.id.keyboard);
@@ -150,17 +147,11 @@ public class Hangman extends AppCompatActivity {
 
 
     public void takeGuess (String s){
-        //editText.setText("");
-        Log.d("TAAAKKEEGGGUUEESS==", s);
 
         StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
         StringBuilder theWord = new StringBuilder(word);
         if(s != null) {
             char guessChar = s.charAt(0);
-            if (guessChar == 'A') {
-                String str = "A";
-                Log.d("GGUUEESSCCHHAARR==", str);
-            }
 
             if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
                 Toast.makeText(this, "Ekki rétt ",
@@ -227,7 +218,6 @@ public class Hangman extends AppCompatActivity {
                 startActivity(intent);
             }
             hidden_view.setText(build_hidden);
-            //editText.setText("");
             if (tries == MAX_TRIES) {
                 user.addLoss(); //bæta við tapi
                 Toast.makeText(this, "Gengur betur næst!",
@@ -249,9 +239,6 @@ public class Hangman extends AppCompatActivity {
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
 
-        Log.d("HAAAAALLLLLOOOO", theWord);
-
-
         int correctChars = 0;
         for(int i = 0; i < word.length(); i++){
             if(guessChar == hiddenArray.charAt(i)){
@@ -260,7 +247,6 @@ public class Hangman extends AppCompatActivity {
             if(guessChar == theWord.charAt(i)){
                 hiddenArray.setCharAt(i, guessChar);
                 correctChars ++;
-                Log.d("CCCCCCOOORRRECCCT", "word");
             }
         }
         return correctChars;
