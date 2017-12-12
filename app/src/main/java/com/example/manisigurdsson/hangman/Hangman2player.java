@@ -1,6 +1,7 @@
 package com.example.manisigurdsson.hangman;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -24,6 +25,7 @@ public class Hangman2player extends AppCompatActivity {
     String word;
     TextWatcher tw;
     ImageView img;
+    String p1name, p2name;
 
 
     int MAX_TRIES = 9;
@@ -37,6 +39,8 @@ public class Hangman2player extends AppCompatActivity {
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
         word = getIntent().getStringExtra("secret");
+        p1name = getIntent().getStringExtra("p1");
+        p2name = getIntent().getStringExtra("p2");
 
         String hidden = "";
 
@@ -138,27 +142,30 @@ public class Hangman2player extends AppCompatActivity {
                         img.setImageResource(R.drawable.hangman10);
                     }
                 }
-            } else {
-                Toast.makeText(this, "Rétt!",
-                        Toast.LENGTH_SHORT).show();
             }
             if (build_hidden.toString().equals(theWord.toString())) {
 
-                Toast.makeText(this, "Sigurvegari!",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Hangman2player.this, Result.class);
+                intent.putExtra("p1", p1name);
+                intent.putExtra("p2", p2name);
                 intent.putExtra("word", word);
-                intent.putExtra("winorloss", 1);
+                intent.putExtra("winorloss", 2);
                 startActivity(intent);
             }
             hidden_view.setText(build_hidden);
             if (tries == MAX_TRIES) {
-                Toast.makeText(this, "Gengur betur næst!",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Hangman2player.this, Result.class);
+                final Intent intent = new Intent(Hangman2player.this, Result.class);
                 intent.putExtra("word", word);
+                intent.putExtra("p1", p1name);
+                intent.putExtra("p2", p2name);
                 intent.putExtra("score", 0);
-                intent.putExtra("winorloss", 0);
+                intent.putExtra("winorloss", 3);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 2000);
                 startActivity(intent);
             }
         }
