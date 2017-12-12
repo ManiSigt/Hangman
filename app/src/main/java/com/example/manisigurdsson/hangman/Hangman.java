@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -34,19 +35,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
 
     TextView word_view;
-
     TextView hidden_view, rubieview;
     EditText editText;
-    String word, username;
+    String word, username, wordsToTranslate;
     User user;
     ImageView img;
     TextWatcher tw;
+    List<String> wordlist = new ArrayList<>();
+    List<String> words = new ArrayList<>();
+
 
     int MAX_TRIES;
     int tries = 0;
@@ -59,7 +64,7 @@ public class Hangman extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new getData().execute();
+
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username = pref.getString("username", null); // getting String
@@ -75,6 +80,8 @@ public class Hangman extends AppCompatActivity {
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
+
+        new getData().execute();
 
         getRuby();
 
@@ -140,6 +147,9 @@ public class Hangman extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     user = singleSnapshot.getValue(User.class);
+                    if(user.getWordlist() != null){
+                        words = user.getWordlist();
+                    }
                 }
             }
             @Override
@@ -211,6 +221,7 @@ public class Hangman extends AppCompatActivity {
             }
             if (build_hidden.toString().equals(theWord.toString())) {
                 user.addWin();
+                user.setWordlist(words);
                 user.addScore(score/word.length());
                 user.addRubies(100000);
 
@@ -225,6 +236,7 @@ public class Hangman extends AppCompatActivity {
             hidden_view.setText(build_hidden);
             if (tries == MAX_TRIES) {
                 user.addLoss(); //bæta við tapi
+                user.setWordlist(words);
                 Toast.makeText(this, "Gengur betur næst!",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Hangman.this, Result.class);
@@ -280,40 +292,63 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
 
-            StringBuilder result = new StringBuilder();
+            Log.d("resultSIZE: ", "" + words.size());
+            if (words.size() == 0) {
+                StringBuilder result = new StringBuilder();
 
-            try {
-                URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                try {
+                    URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=10&sortBy=count&sortOrder=asc&limit=20&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    urlConnection.disconnect();
                 }
-
-            }catch( Exception e) {
-                e.printStackTrace();
+                return result.toString();
             }
-            finally {
-                urlConnection.disconnect();
-            }
-            return result.toString();
+            return "no-need";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            try {
+            if(result == "no-need"){
+                Log.d("resultSIZE2: ", ""+ words.size());
+                word = words.get(0);
+                words.remove(0);
+                user.setWordlist(words);
+                Log.d("resultWORD: ", "" +word);
+                word_view.setText(word);
+                String build_hidden = "";
+                for(int i = 0; i < word.length(); i++){
+                    build_hidden += "-";
+                }
+                hidden_view.setText(build_hidden);
 
-                JSONObject j = new JSONObject(result);
-                word  = (String) j.get("word");
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Log.d("resultG: ", "" +words.size() + " " + words.toString());
+                return;
             }
-            new getTranslation().execute();
+            else{
+                try {
+                    JSONArray j = new JSONArray(result);
+                    for (int i = 0; i < j.length(); i++) {
+                        wordlist.add(j.getJSONObject(i).get("word").toString());
+
+                    }
+
+                    new getTranslation().execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -322,9 +357,17 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+            wordsToTranslate = "";
+            for(int i = 0; i < wordlist.size(); i++){
+                wordsToTranslate += wordlist.get(i).toString();
+                if(wordlist.size() != i){
+                    wordsToTranslate += "%20";
+                }
+            }
+
             StringBuilder result = new StringBuilder();
             try {
-                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text=house%20bridge%20attempt%20snow%20holy%20tuna&lang=en-is";
+                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text="+ wordsToTranslate +"&lang=en-is";
 
                 URL url = new URL(urlStr);
 
@@ -341,28 +384,43 @@ public class Hangman extends AppCompatActivity {
             } finally {
                 conn.disconnect();
             }
+
             return result.toString();
 
         }
 
         @Override
         protected void onPostExecute(String result) {
-            try{
+            try {
                 String json = new JSONObject(result)
                         .getJSONArray("text").getString(0);
                 String arr[] = json.split(" ");
-                word = arr[0];
-                word_view.setText(word);
-                String build_hidden = "";
-                for(int i = 0; i < word.length(); i++){
-                    build_hidden += "-";
+                List<String> arraylist = new ArrayList<>();
+                words = new ArrayList<>();
+                arraylist = Arrays.asList(arr);
+                Log.d("results4: ", arraylist.toString());
+                Log.d("results4: ", wordlist.toString());
+                int found = 0;
+                for(int k = 0; k < arraylist.size(); k++){
+                    found = 0;
+                    for(int i = 0; i < wordlist.size(); i++){
+                        if(0 == arraylist.get(k).compareTo(wordlist.get(i))){
+                            found++;
+                        }
+                    }
+
+                    if(found == 0 && !arraylist.get(k).contains("-")){
+                        words.add(arraylist.get(k));
+                    }
                 }
-                hidden_view.setText(build_hidden);
-            } catch (JSONException e) {
                 new getData().execute();
+
+            } catch (JSONException e) {
                 e.printStackTrace();
+                new getData().execute();
             }
         }
+
     }
     public void getRuby(){
         DatabaseReference ref = dbRef.child("users");

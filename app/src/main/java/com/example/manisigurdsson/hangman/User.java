@@ -1,5 +1,7 @@
 package com.example.manisigurdsson.hangman;
 
+import java.util.List;
+
 /**
  * Created by Audur Reynisdottir on 07/12/2017.
  */
@@ -11,6 +13,7 @@ public class User {
     private int losses;
     private int played;
     private int rubies;
+    private List<String> wordlist;
 
     public User(String s) {
         name = s;
@@ -65,4 +68,12 @@ public class User {
         rubies = rubies + n;
     }
     public void removeRubies(int n) {rubies = rubies - n;}
+
+    public void setWordlist(List<String> wordlist) {
+        this.wordlist = wordlist;
+    }
+
+    public List<String> getWordlist() {
+        return wordlist;
+    }
 }
