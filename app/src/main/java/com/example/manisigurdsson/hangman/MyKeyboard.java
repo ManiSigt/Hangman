@@ -126,7 +126,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.btn_l, "l");
         keyValues.put(R.id.btn_m, "m");
         keyValues.put(R.id.btn_n, "n");
-        keyValues.put(R.id.btn_o, "ó");
+        keyValues.put(R.id.btn_o, "o");
         keyValues.put(R.id.btn_oo, "ó");
         keyValues.put(R.id.btn_p, "p");
         keyValues.put(R.id.btn_q, "q");
