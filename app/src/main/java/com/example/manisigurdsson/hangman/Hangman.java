@@ -337,7 +337,7 @@ public class Hangman extends AppCompatActivity {
                     word_view.setText(word);
                     String build_hidden = "";
                     for(int i = 0; i < word.length(); i++){
-                        build_hidden += "-";
+                        build_hidden += "- ";
                     }
                     hidden_view.setText(build_hidden);
 
