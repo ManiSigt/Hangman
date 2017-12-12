@@ -155,6 +155,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         view.setBackgroundColor(2);
         inputConnection.commitText(value, 1);
         Log.d("KKKEEYYY===VALLLLUUEEE", value);
+        view.setClickable(false);
+
     }
 
     public void setInputConnection(InputConnection ic) {
