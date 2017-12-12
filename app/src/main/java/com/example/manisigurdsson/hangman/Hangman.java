@@ -1,5 +1,6 @@
 package com.example.manisigurdsson.hangman;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -35,19 +37,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
 
     TextView word_view;
-
     TextView hidden_view, rubieview;
     EditText editText;
-    String word, username;
+    String word, username, wordsToTranslate;
     User user;
     ImageView img;
     TextWatcher tw;
+    List<String> wordlist = new ArrayList<>();
+    List<String> words = new ArrayList<>();
+
 
     int MAX_TRIES;
     int tries = 0;
@@ -60,10 +66,18 @@ public class Hangman extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new getData().execute();
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username = pref.getString("username", null); // getting String
+        String pref_words = pref.getString("words", null);
+        if(pref_words.length() > 2){
+            pref_words = pref_words.replace(",", "");
+            pref_words = pref_words.replace("[", "");
+            pref_words = pref_words.replace("]", "");
+            String arr[] = pref_words.split(" ");
+            words = new ArrayList<>();
+            words = Arrays.asList(arr);
+        }
 
         dbRef = FirebaseDatabase.getInstance().getReference();
         db = new DataBase();
@@ -72,14 +86,13 @@ public class Hangman extends AppCompatActivity {
 
         int difficulty = getIntent().getIntExtra("msg", 1);
 
-
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
 
+        new getData().execute();
+
         getRuby();
-
-
 
         MyKeyboard keyboard = findViewById(R.id.keyboard);
 
@@ -118,7 +131,6 @@ public class Hangman extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String buttonText = editText.getText().toString();
                 if(buttonText != null && buttonText != " " && buttonText != "") {
-                    Log.d("KEEEYYYBBBOARDD==", buttonText );
                     takeGuess(buttonText);
                 }
             }
@@ -240,6 +252,11 @@ public class Hangman extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         db.saveUser(user);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        String wordstosave = words.toString();
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("words", wordstosave);
+        editor.commit();
     }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
@@ -280,40 +297,64 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
 
-            StringBuilder result = new StringBuilder();
+            if (words.size() == 0) {
+                StringBuilder result = new StringBuilder();
 
-            try {
-                URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                try {
+                    URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=10&sortBy=count&sortOrder=asc&limit=20&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    urlConnection.disconnect();
                 }
-
-            }catch( Exception e) {
-                e.printStackTrace();
+                return result.toString();
             }
-            finally {
-                urlConnection.disconnect();
-            }
-            return result.toString();
+            return "no-need";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            try {
+            if(result == "no-need"){
+                if(words.size() != 0){
+                    word = words.get(0);
+                    words = words.subList(1, words.size());
+                    word_view.setText(word);
+                    String build_hidden = "";
+                    for(int i = 0; i < word.length(); i++){
+                        build_hidden += "-";
+                    }
+                    hidden_view.setText(build_hidden);
 
-                JSONObject j = new JSONObject(result);
-                word  = (String) j.get("word");
+                    return;
+                }
+                else{
+                    new getData().execute();
+                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-            new getTranslation().execute();
+            else{
+                try {
+                    JSONArray j = new JSONArray(result);
+                    for (int i = 0; i < j.length(); i++) {
+                        wordlist.add(j.getJSONObject(i).get("word").toString());
+
+                    }
+
+                    new getTranslation().execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -322,9 +363,17 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+            wordsToTranslate = "";
+            for(int i = 0; i < wordlist.size(); i++){
+                wordsToTranslate += wordlist.get(i).toString();
+                if(wordlist.size() != i){
+                    wordsToTranslate += "%20";
+                }
+            }
+
             StringBuilder result = new StringBuilder();
             try {
-                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text=house%20bridge%20attempt%20snow%20holy%20tuna&lang=en-is";
+                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text="+ wordsToTranslate +"&lang=en-is";
 
                 URL url = new URL(urlStr);
 
@@ -341,28 +390,41 @@ public class Hangman extends AppCompatActivity {
             } finally {
                 conn.disconnect();
             }
+
             return result.toString();
 
         }
 
         @Override
         protected void onPostExecute(String result) {
-            try{
+            try {
                 String json = new JSONObject(result)
                         .getJSONArray("text").getString(0);
                 String arr[] = json.split(" ");
-                word = arr[0];
-                word_view.setText(word);
-                String build_hidden = "";
-                for(int i = 0; i < word.length(); i++){
-                    build_hidden += "-";
+                List<String> arraylist = new ArrayList<>();
+                words = new ArrayList<>();
+                arraylist = Arrays.asList(arr);
+                int found = 0;
+                for(int k = 0; k < arraylist.size(); k++){
+                    found = 0;
+                    for(int i = 0; i < wordlist.size(); i++){
+                        if(0 == arraylist.get(k).compareTo(wordlist.get(i))){
+                            found++;
+                        }
+                    }
+
+                    if(found == 0 && !arraylist.get(k).contains("-")){
+                        words.add(arraylist.get(k));
+                    }
                 }
-                hidden_view.setText(build_hidden);
-            } catch (JSONException e) {
                 new getData().execute();
+
+            } catch (JSONException e) {
                 e.printStackTrace();
+                new getData().execute();
             }
         }
+
     }
     public void getRuby(){
         DatabaseReference ref = dbRef.child("users");

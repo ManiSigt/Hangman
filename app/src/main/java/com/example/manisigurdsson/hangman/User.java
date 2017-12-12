@@ -1,5 +1,7 @@
 package com.example.manisigurdsson.hangman;
 
+import java.util.List;
+
 /**
  * Created by Audur Reynisdottir on 07/12/2017.
  */
@@ -41,8 +43,6 @@ public class User {
 
     public int getPlayed() { return (played); }
 
-
-
     public void setName(String s) {
         name = s;
     }
@@ -65,4 +65,5 @@ public class User {
         rubies = rubies + n;
     }
     public void removeRubies(int n) {rubies = rubies - n;}
+
 }
