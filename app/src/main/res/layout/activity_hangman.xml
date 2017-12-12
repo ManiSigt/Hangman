@@ -14,8 +14,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <ImageView
@@ -47,38 +49,38 @@
                 android:text="word"
                 android:textSize="24sp" />
 
-          
 
-            <ImageView
-                android:layout_width="25dp"
-                app:srcCompat="@drawable/ruby"
-                android:layout_height="25dp"
-                android:layout_marginTop="15dp"
-                android:contentDescription="ruby"
-                />
-            <TextView
-                android:layout_margin="5dp"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="num"
-                android:textSize="24sp"
-                android:id="@+id/rubieid"/>
-          
-           <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="231dp"
-                tools:layout_editor_absoluteY="364dp"
+                android:onClick="hintClick"
                 android:text="@string/hint"
-                android:onClick="hintClick"/>
+                tools:layout_editor_absoluteX="231dp"
+                tools:layout_editor_absoluteY="364dp" />
+
             <EditText
                 android:id="@+id/keyboard_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:inputType="textCapCharacters" />
+                android:inputType="textCapCharacters"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="ruby"
+                app:srcCompat="@drawable/ruby" />
+
+            <TextView
+                android:id="@+id/rubieid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="num"
+                android:textSize="24sp" />
         </LinearLayout>
 
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -205,17 +206,12 @@ public class Hangman extends AppCompatActivity {
                         img.setImageResource(R.drawable.hangman10);
                     }
                 }
-            } else {
-                Toast.makeText(this, "Rétt!",
-                        Toast.LENGTH_SHORT).show();
             }
             if (build_hidden.toString().equals(theWord.toString())) {
                 user.addWin();
                 user.addScore(score/word.length());
                 user.addRubies(100000);
 
-                Toast.makeText(this, "Sigurvegari!",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Hangman.this, Result.class);
                 intent.putExtra("word", word);
                 intent.putExtra("score", score/word.length());
@@ -225,13 +221,17 @@ public class Hangman extends AppCompatActivity {
             hidden_view.setText(build_hidden);
             if (tries == MAX_TRIES) {
                 user.addLoss(); //bæta við tapi
-                Toast.makeText(this, "Gengur betur næst!",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Hangman.this, Result.class);
+                final Intent intent = new  Intent(Hangman.this, Result.class);
                 intent.putExtra("word", word);
                 intent.putExtra("score", 0);
                 intent.putExtra("winorloss", 0);
-                startActivity(intent);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
         }
     }
