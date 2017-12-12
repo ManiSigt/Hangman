@@ -288,7 +288,7 @@ public class Hangman extends AppCompatActivity {
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
                     user.removeRubies(1);
-                    rubieview.setText(user.getRubies());
+                    rubieview.setText(""+user.getRubies());
                     break;
                 }
             }
