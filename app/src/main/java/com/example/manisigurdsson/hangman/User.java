@@ -8,11 +8,11 @@ import java.util.List;
 
 public class User {
     private String name = "";
-    private int score;
-    private int wins;
-    private int losses;
-    private int played;
-    private int rubies;
+    private int score = 0;
+    private int wins = 0;
+    private int losses = 0;
+    private int played = 0;
+    private int rubies = 0;
 
     public User(String s) {
         name = s;

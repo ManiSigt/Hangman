@@ -42,7 +42,9 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    user = singleSnapshot.getValue(User.class);
+                    if(username.compareTo(singleSnapshot.getKey().toString()) == 0){
+                        user = singleSnapshot.getValue(User.class);
+                    }
                 }
 
                 TextView userName = findViewById(R.id.stats_name);
