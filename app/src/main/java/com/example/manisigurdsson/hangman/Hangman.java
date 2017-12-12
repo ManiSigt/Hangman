@@ -69,14 +69,16 @@ public class Hangman extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username = pref.getString("username", null); // getting String
         String pref_words = pref.getString("words", null);
-        if(pref_words.length() > 2){
-            pref_words = pref_words.replace(".", "");
-            pref_words = pref_words.replace(",", "");
-            pref_words = pref_words.replace("[", "");
-            pref_words = pref_words.replace("]", "");
-            String arr[] = pref_words.split(" ");
-            words = new ArrayList<>();
-            words = Arrays.asList(arr);
+        if(pref_words != null) {
+            if (pref_words.length() > 2) {
+                pref_words = pref_words.replace(".", "");
+                pref_words = pref_words.replace(",", "");
+                pref_words = pref_words.replace("[", "");
+                pref_words = pref_words.replace("]", "");
+                String arr[] = pref_words.split(" ");
+                words = new ArrayList<>();
+                words = Arrays.asList(arr);
+            }
         }
 
         dbRef = FirebaseDatabase.getInstance().getReference();
@@ -121,7 +123,6 @@ public class Hangman extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -334,7 +335,7 @@ public class Hangman extends AppCompatActivity {
                 if(words.size() != 0){
                     word = words.get(0).toLowerCase();
                     words = words.subList(1, words.size());
-                    word_view.setText(word);
+                    //word_view.setText(word);
                     String build_hidden = "";
                     for(int i = 0; i < word.length(); i++){
                         build_hidden += "-";
