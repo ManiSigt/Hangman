@@ -57,7 +57,6 @@ public class Hangman extends AppCompatActivity {
     int MAX_TRIES;
     int tries = 0;
     int score;
-    int rubycount;
 
     DataBase db;
     DatabaseReference dbRef;
@@ -157,7 +156,6 @@ public class Hangman extends AppCompatActivity {
                         Log.d("hasChild A: ", user.getName());
                         rubieview = findViewById(R.id.rubieid);
                         rubieview.setText("" + user.getRubies());
-                        rubycount = user.getRubies();
                     }
                 }
             }
@@ -283,13 +281,14 @@ public class Hangman extends AppCompatActivity {
 
     public void hintClick(View view) {
         char correct;
-        if(rubycount > 0 ) {
+        if(user.getRubies() > 0 ) {
             for (int i = 0; i < word.length(); i++) {
                 if (hidden_view.getText().toString().charAt(i) == '-') {
                     correct = word.charAt(i);
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
                     user.removeRubies(1);
+                    rubieview.setText(user.getRubies());
                     break;
                 }
             }
