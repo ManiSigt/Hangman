@@ -13,7 +13,6 @@ public class User {
     private int losses;
     private int played;
     private int rubies;
-    private List<String> wordlist;
 
     public User(String s) {
         name = s;
@@ -44,8 +43,6 @@ public class User {
 
     public int getPlayed() { return (played); }
 
-
-
     public void setName(String s) {
         name = s;
     }
@@ -69,11 +66,4 @@ public class User {
     }
     public void removeRubies(int n) {rubies = rubies - n;}
 
-    public void setWordlist(List<String> wordlist) {
-        this.wordlist = wordlist;
-    }
-
-    public List<String> getWordlist() {
-        return wordlist;
-    }
 }

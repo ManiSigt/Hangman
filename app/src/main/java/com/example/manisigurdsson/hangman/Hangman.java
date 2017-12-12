@@ -1,5 +1,6 @@
 package com.example.manisigurdsson.hangman;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -65,9 +66,17 @@ public class Hangman extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username = pref.getString("username", null); // getting String
+        String pref_words = pref.getString("words", null);
+        if(pref_words.length() > 2){
+            pref_words = pref_words.replace(",", "");
+            pref_words = pref_words.replace("[", "");
+            pref_words = pref_words.replace("]", "");
+            String arr[] = pref_words.split(" ");
+            words = new ArrayList<>();
+            words = Arrays.asList(arr);
+        }
 
         dbRef = FirebaseDatabase.getInstance().getReference();
         db = new DataBase();
@@ -76,7 +85,6 @@ public class Hangman extends AppCompatActivity {
 
         int difficulty = getIntent().getIntExtra("msg", 1);
 
-
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
@@ -84,8 +92,6 @@ public class Hangman extends AppCompatActivity {
         new getData().execute();
 
         getRuby();
-
-
 
         MyKeyboard keyboard = findViewById(R.id.keyboard);
 
@@ -124,7 +130,6 @@ public class Hangman extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String buttonText = editText.getText().toString();
                 if(buttonText != null && buttonText != " " && buttonText != "") {
-                    Log.d("KEEEYYYBBBOARDD==", buttonText );
                     takeGuess(buttonText);
                 }
             }
@@ -147,9 +152,6 @@ public class Hangman extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     user = singleSnapshot.getValue(User.class);
-                    if(user.getWordlist() != null){
-                        words = user.getWordlist();
-                    }
                 }
             }
             @Override
@@ -221,7 +223,6 @@ public class Hangman extends AppCompatActivity {
             }
             if (build_hidden.toString().equals(theWord.toString())) {
                 user.addWin();
-                user.setWordlist(words);
                 user.addScore(score/word.length());
                 user.addRubies(100000);
 
@@ -236,7 +237,6 @@ public class Hangman extends AppCompatActivity {
             hidden_view.setText(build_hidden);
             if (tries == MAX_TRIES) {
                 user.addLoss(); //bæta við tapi
-                user.setWordlist(words);
                 Toast.makeText(this, "Gengur betur næst!",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Hangman.this, Result.class);
@@ -252,6 +252,11 @@ public class Hangman extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         db.saveUser(user);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        String wordstosave = words.toString();
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("words", wordstosave);
+        editor.commit();
     }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
@@ -292,7 +297,6 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
 
-            Log.d("resultSIZE: ", "" + words.size());
             if (words.size() == 0) {
                 StringBuilder result = new StringBuilder();
 
@@ -321,20 +325,22 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if(result == "no-need"){
-                Log.d("resultSIZE2: ", ""+ words.size());
-                word = words.get(0);
-                words.remove(0);
-                user.setWordlist(words);
-                Log.d("resultWORD: ", "" +word);
-                word_view.setText(word);
-                String build_hidden = "";
-                for(int i = 0; i < word.length(); i++){
-                    build_hidden += "-";
-                }
-                hidden_view.setText(build_hidden);
+                if(words.size() != 0){
+                    word = words.get(0);
+                    words = words.subList(1, words.size());
+                    word_view.setText(word);
+                    String build_hidden = "";
+                    for(int i = 0; i < word.length(); i++){
+                        build_hidden += "-";
+                    }
+                    hidden_view.setText(build_hidden);
 
-                Log.d("resultG: ", "" +words.size() + " " + words.toString());
-                return;
+                    return;
+                }
+                else{
+                    new getData().execute();
+                }
+
             }
             else{
                 try {
@@ -398,8 +404,6 @@ public class Hangman extends AppCompatActivity {
                 List<String> arraylist = new ArrayList<>();
                 words = new ArrayList<>();
                 arraylist = Arrays.asList(arr);
-                Log.d("results4: ", arraylist.toString());
-                Log.d("results4: ", wordlist.toString());
                 int found = 0;
                 for(int k = 0; k < arraylist.size(); k++){
                     found = 0;
