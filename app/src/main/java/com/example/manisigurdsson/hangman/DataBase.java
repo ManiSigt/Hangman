@@ -26,11 +26,10 @@ public class DataBase {
     }
 
     //saves new user to database, overwrites old user
-    public void saveUser(User user) {
+    public void saveUser(User _user) {
         DatabaseReference ref = mDatabase.child("users");
-        this.user = user;
-        this.user.setName(username);
-        ref.child(username).setValue(this.user);
+        user = _user;
+        ref.child(user.getName()).setValue(user);
     }
 
     public void userExist(String name) {

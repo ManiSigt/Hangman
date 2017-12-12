@@ -16,8 +16,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,9 +42,7 @@
                 android:layout_margin="5dp"
                 android:contentDescription="ruby"
                 app:srcCompat="@drawable/ruby_burned_burned" />
-
         </LinearLayout>
-
 
         <ImageView
             android:id="@+id/imageView"
@@ -92,16 +92,12 @@
                 android:visibility="invisible" />
         </LinearLayout>
 
-
         <com.example.manisigurdsson.hangman.MyKeyboard
             android:id="@+id/keyboard"
             android:layout_width="wrap_content"
             android:layout_height="167dp"
             android:orientation="vertical" />
-
-
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
 
 

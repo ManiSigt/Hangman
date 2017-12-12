@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 public class Result extends AppCompatActivity {
     TextView ord, stig, winorloss, scorewinorloss;
+    int WinOrLoss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,20 +19,37 @@ public class Result extends AppCompatActivity {
         scorewinorloss = findViewById(R.id.Scoreset);
         String ordid = getIntent().getStringExtra("word");
         int stigin = getIntent().getIntExtra("score", 0);
-        int WinOrLoss = getIntent().getIntExtra("winorloss", 0);
+        WinOrLoss = getIntent().getIntExtra("winorloss", 0);
+        String p1 = getIntent().getStringExtra("p1");
+        String p2 = getIntent().getStringExtra("p2");
+
         ord.setText(ordid);
+
         if(WinOrLoss == 0){
             winorloss.setText("Þú tapaðir :( orðið var :");
             scorewinorloss.setText("þú færð engin stig");
             stig.setText(" ");
-        }else {
+        }else if(WinOrLoss == 1) {
             stig.setText(Integer.toString(stigin));
+        }else if(WinOrLoss == 2){
+            winorloss.setText(p2 + " Vann! orðið var :");
+            scorewinorloss.setText(p1 + " þú verður að gera betur en þetta!");
+            stig.setText(" ");
+        }else if (WinOrLoss == 3){
+            winorloss.setText(p1 + " Vann! orðið var :");
+            scorewinorloss.setText(p2 + " þú verður að gera betur en þetta!");
+            stig.setText(" ");
         }
     }
 
     public void jaclick(View view) {
-        Intent intent = new Intent(this, DifficultySettings.class);
-        startActivity(intent);
+        if(WinOrLoss == 2 || WinOrLoss == 3){
+            Intent intent = new Intent(this, TwoPlayerOptions.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, DifficultySettings.class);
+            startActivity(intent);
+        }
     }
 
     public void neiClick(View view) {
