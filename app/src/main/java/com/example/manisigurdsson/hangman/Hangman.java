@@ -41,7 +41,7 @@ public class Hangman extends AppCompatActivity {
 
     TextView word_view;
 
-    TextView hidden_view, rubieview
+    TextView hidden_view, rubieview;
     EditText editText;
     String word, username;
     User user;
