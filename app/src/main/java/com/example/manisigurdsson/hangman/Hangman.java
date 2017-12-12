@@ -292,6 +292,9 @@ public class Hangman extends AppCompatActivity {
                     break;
                 }
             }
+        }else {
+            Toast.makeText(this, "Þú átt ekki nógu margar rúbínur til að fá vísbendingu",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
