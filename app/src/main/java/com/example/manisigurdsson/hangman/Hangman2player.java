@@ -101,45 +101,45 @@ public class Hangman2player extends AppCompatActivity {
 
                     if (tries == 1) {
                         Log.d("SSSSDDDDDDSSSSSS", s);
-                        img.setImageResource(R.drawable.hangman2);
+                        img.setImageResource(R.drawable.hangman2_burned);
                     } else if (tries == 2) {
-                        img.setImageResource(R.drawable.hangman3);
+                        img.setImageResource(R.drawable.hangman3_burned);
                     } else if (tries == 3) {
-                        img.setImageResource(R.drawable.hangman4);
+                        img.setImageResource(R.drawable.hangman4_burned);
                     } else if (tries == 4) {
-                        img.setImageResource(R.drawable.hangman5);
+                        img.setImageResource(R.drawable.hangman5_burned);
                     } else if (tries == 5) {
-                        img.setImageResource(R.drawable.hangman6);
+                        img.setImageResource(R.drawable.hangman6_burned);
                     } else if (tries == 6) {
-                        img.setImageResource(R.drawable.hangman7);
+                        img.setImageResource(R.drawable.hangman7_burned);
                     } else if (tries == 7) {
-                        img.setImageResource(R.drawable.hangman8);
+                        img.setImageResource(R.drawable.hangman8_burned);
                     } else if (tries == 8) {
-                        img.setImageResource(R.drawable.hangman9);
+                        img.setImageResource(R.drawable.hangman9_burned);
                     } else if (tries == 9) {
-                        img.setImageResource(R.drawable.hangman10);
+                        img.setImageResource(R.drawable.hangman10_burned);
                     }
                 } else if (MAX_TRIES == 6) {
                     if (tries == 1) {
-                        img.setImageResource(R.drawable.hangman3);
+                        img.setImageResource(R.drawable.hangman3_burned);
                     } else if (tries == 2) {
-                        img.setImageResource(R.drawable.hangman4);
+                        img.setImageResource(R.drawable.hangman4_burned);
                     } else if (tries == 3) {
-                        img.setImageResource(R.drawable.hangman5);
+                        img.setImageResource(R.drawable.hangman5_burned);
                     } else if (tries == 4) {
-                        img.setImageResource(R.drawable.hangman7);
+                        img.setImageResource(R.drawable.hangman7_burned);
                     } else if (tries == 5) {
-                        img.setImageResource(R.drawable.hangman9);
+                        img.setImageResource(R.drawable.hangman9_burned);
                     } else if (tries == 6) {
-                        img.setImageResource(R.drawable.hangman10);
+                        img.setImageResource(R.drawable.hangman10_burned);
                     }
                 } else {
                     if (tries == 1) {
-                        img.setImageResource(R.drawable.hangman3);
+                        img.setImageResource(R.drawable.hangman3_burned);
                     } else if (tries == 2) {
-                        img.setImageResource(R.drawable.hangman9);
+                        img.setImageResource(R.drawable.hangman9_burned);
                     } else if (tries == 3) {
-                        img.setImageResource(R.drawable.hangman10);
+                        img.setImageResource(R.drawable.hangman10_burned);
                     }
                 }
             }
