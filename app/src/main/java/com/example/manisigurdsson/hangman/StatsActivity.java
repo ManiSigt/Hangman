@@ -45,11 +45,15 @@ public class StatsActivity extends AppCompatActivity {
                     user = singleSnapshot.getValue(User.class);
                 }
 
+                TextView userName = findViewById(R.id.stats_name);
+                TextView userScore = findViewById(R.id.stats_score);
                 TextView userWins = findViewById(R.id.stats_wins);
                 TextView userLosses = findViewById(R.id.stats_losses);
                 TextView userPlayed = findViewById(R.id.stats_played);
                 TextView userWinpercent = findViewById(R.id.stats_winpercent);
 
+                userName.setText(user.getName());
+                userScore.setText("" +user.getScore());
                 userWins.setText("" +user.getWins());
                 userLosses.setText("" +user.getLosses());
                 userPlayed.setText("" +user.getPlayed());
