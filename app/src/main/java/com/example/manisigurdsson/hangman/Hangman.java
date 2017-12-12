@@ -54,7 +54,6 @@ public class Hangman extends AppCompatActivity {
     List<String> wordlist = new ArrayList<>();
     List<String> words = new ArrayList<>();
 
-
     int MAX_TRIES;
     int tries = 0;
     int score;
@@ -71,6 +70,7 @@ public class Hangman extends AppCompatActivity {
         username = pref.getString("username", null); // getting String
         String pref_words = pref.getString("words", null);
         if(pref_words.length() > 2){
+            pref_words = pref_words.replace(".", "");
             pref_words = pref_words.replace(",", "");
             pref_words = pref_words.replace("[", "");
             pref_words = pref_words.replace("]", "");
@@ -92,8 +92,6 @@ public class Hangman extends AppCompatActivity {
 
         new getData().execute();
 
-        getRuby();
-
         MyKeyboard keyboard = findViewById(R.id.keyboard);
 
         editText = findViewById(R.id.keyboard_input);
@@ -104,7 +102,6 @@ public class Hangman extends AppCompatActivity {
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
-
         img = findViewById(R.id.imageView);
         if(difficulty == 1){
             MAX_TRIES = 9;
@@ -154,6 +151,12 @@ public class Hangman extends AppCompatActivity {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     if(username.compareTo(singleSnapshot.getKey().toString()) == 0){
                         user = singleSnapshot.getValue(User.class);
+                        Log.e("userX: ", user.getName() +" " + user.getScore() + " " + user.getRubies());
+
+                        Log.d("hasChild A: ", user.getName());
+                        rubieview = findViewById(R.id.rubieid);
+                        rubieview.setText("" + user.getRubies());
+                        rubycount = user.getRubies();
                     }
                 }
             }
@@ -253,6 +256,7 @@ public class Hangman extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d("hasChildDDD", user.getName());
         db.saveUser(user);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         String wordstosave = words.toString();
@@ -300,6 +304,7 @@ public class Hangman extends AppCompatActivity {
 
             if (words.size() == 0) {
                 StringBuilder result = new StringBuilder();
+
 
                 try {
                     URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=10&sortBy=count&sortOrder=asc&limit=20&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
@@ -425,27 +430,5 @@ public class Hangman extends AppCompatActivity {
                 new getData().execute();
             }
         }
-    }
-    public void getRuby(){
-        DatabaseReference ref = dbRef.child("users");
-        Query userQuery = ref.orderByChild(username);
-
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    user = singleSnapshot.getValue(User.class);
-                }
-                rubieview = findViewById(R.id.rubieid);
-                rubieview.setText("" + user.getRubies());
-                rubycount = user.getRubies();
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
-                user.setName("nope");
-            }
-        });
     }
 }

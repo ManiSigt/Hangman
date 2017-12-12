@@ -39,6 +39,8 @@ public class DataBase {
         check.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                Log.d("hasChild:", "" + username);
+                Log.d("hasChild:", "" +snapshot.hasChild(username));
                 if (!snapshot.hasChild(username)) {
                     User u = new User(username);
                     saveUser(u);
