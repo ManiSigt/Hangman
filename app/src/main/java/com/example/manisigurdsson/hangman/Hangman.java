@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class Hangman extends AppCompatActivity {
     TextWatcher tw;
     List<String> wordlist = new ArrayList<>();
     List<String> words = new ArrayList<>();
+
+    private ProgressBar spinner;
 
     int MAX_TRIES;
     int tries = 0;
@@ -90,6 +93,10 @@ public class Hangman extends AppCompatActivity {
         setContentView(R.layout.activity_hangman);
         word_view = findViewById(R.id.word);
         hidden_view = findViewById(R.id.hidden);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar);
+
+        spinner.setVisibility(View.VISIBLE);
 
         new getData().execute();
 
@@ -344,19 +351,19 @@ public class Hangman extends AppCompatActivity {
                     }
                     hidden_view.setText(build_hidden);
 
+                    spinner.setVisibility(View.INVISIBLE);
+
                     return;
                 }
                 else{
                     new getData().execute();
                 }
-
             }
             else{
                 try {
                     JSONArray j = new JSONArray(result);
                     for (int i = 0; i < j.length(); i++) {
                         wordlist.add(j.getJSONObject(i).get("word").toString());
-
                     }
 
                     new getTranslation().execute();
