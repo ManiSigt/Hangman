@@ -19,9 +19,10 @@
         android:id="@+id/player2ID"
         android:hint="@string/p2"/>
     <EditText
+        android:id="@+id/secretID"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/secretID"
+
         android:inputType="textPassword"
         android:hint="@string/secret"/>
     <Button
