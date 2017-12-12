@@ -61,7 +61,8 @@ public class HighScoreActivity extends AppCompatActivity {
     private void populateHighscore() {
         List<String> personList = new ArrayList<String>();
         for (int i = 0; i < users.size(); i++) {
-            personList.add(users.get(i).getName() + " " + users.get(i).getScore());
+
+            personList.add(users.size() - i + ". " + users.get(i).getName() + "\t\t" + users.get(i).getScore());
         }
         Collections.reverse(personList);
         ListView lv = findViewById(R.id.highscore_list);
@@ -75,7 +76,9 @@ public class HighScoreActivity extends AppCompatActivity {
 
                         name = adapter.getItemAtPosition(position).toString();
                         name = name.replaceAll("[0-9]","");
-                        name = name.substring(0, name.length()-1);
+                        name = name.replaceAll("[\t]","");
+                        name = name.replaceAll("[.]","");
+                        name = name.substring(1, name.length());
 
                         populateStatsView();
                     }
