@@ -63,13 +63,28 @@
             android:onClick="takeGuess"
             android:text="Guess" />
           
-              <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="364dp"
-        android:text="@string/hint"
-        android:onClick="hintClick"/>
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="231dp"
+            tools:layout_editor_absoluteY="364dp"
+            android:text="@string/hint"
+            android:layout_margin="5dp"
+            android:onClick="hintClick"/>
+            <ImageView
+                android:layout_width="25dp"
+                app:srcCompat="@drawable/ruby"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="ruby"
+                />
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="num"
+                android:textSize="24sp"
+                android:id="@+id/rubieid"/>
           
         </LinearLayout>
 

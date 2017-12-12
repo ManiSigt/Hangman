@@ -35,6 +35,7 @@ public class User {
     }
 
     public int getRubies() {
+
         return rubies;
     }
 

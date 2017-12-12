@@ -40,7 +40,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class Hangman extends AppCompatActivity {
 
     TextView word_view;
-    TextView hidden_view;
+    TextView hidden_view, rubieview;
     EditText input_field, editText;
     Button inputbtn;
     String word, username;
@@ -50,6 +50,7 @@ public class Hangman extends AppCompatActivity {
     int MAX_TRIES;
     int tries = 0;
     int score;
+    int rubycount;
 
     DataBase db;
     DatabaseReference dbRef;
@@ -75,6 +76,10 @@ public class Hangman extends AppCompatActivity {
         hidden_view = findViewById(R.id.hidden);
         input_field = findViewById(R.id.input_field);
         inputbtn = findViewById(R.id.btn_guess);
+        getRuby();
+
+
+
 
 
         MyKeyboard keyboard = findViewById(R.id.keyboard);
@@ -306,17 +311,17 @@ public class Hangman extends AppCompatActivity {
 
     public void hintClick(View view) {
         char correct;
-        //if(user.getRubies() > 0 ) {
+        if(rubycount > 0 ) {
             for (int i = 0; i < word.length(); i++) {
                 if (hidden_view.getText().toString().charAt(i) == '-') {
                     correct = word.charAt(i);
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
-                    //user.removeRubies(1);
+                    user.removeRubies(1);
                     break;
                 }
             }
-        //}
+        }
 
     }
 
@@ -410,5 +415,27 @@ public class Hangman extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    public void getRuby(){
+        DatabaseReference ref = dbRef.child("users");
+        Query userQuery = ref.orderByChild(username);
+
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    user = singleSnapshot.getValue(User.class);
+                }
+                rubieview = findViewById(R.id.rubieid);
+                rubieview.setText("" + user.getRubies());
+                rubycount = user.getRubies();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled: ", "cancel.");
+                user.setName("nope");
+            }
+        });
     }
 }
