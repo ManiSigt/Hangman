@@ -17,20 +17,17 @@ public class DifficultySettings extends AppCompatActivity {
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("msg", 1);
         startActivity(intent);
-        setContentView(R.layout.activity_hangman);
     }
 
     public void mediumClick(View view) {
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("msg", 2);
         startActivity(intent);
-        setContentView(R.layout.activity_hangman);
     }
 
     public void hardClick(View view) {
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("msg" , 3);
         startActivity(intent);
-        setContentView(R.layout.activity_hangman);
     }
 }
