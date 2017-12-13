@@ -2,7 +2,9 @@ package com.example.manisigurdsson.hangman;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.view.WindowManager;
@@ -38,10 +40,60 @@ public class DifficultySettingsTest {
     }
     @After
     public void tearDown(){ }
-
+    // þarf að mocka save user til að keyra þessi Test!
     @Test
-    public void testButtoneasy(){
-            // HJALP VEIT EKKERT!"#$%!"#$!"#$
+    public void testButtonEasy(){
+        Context targetContext = InstrumentationRegistry.getInstrumentation()
+                .getTargetContext();
+        Intent intent = new Intent(targetContext, DifficultySettings.class);
+        intent.putExtra("msg", "1");
+
+
+        ViewInteraction btn = onView(withId(R.id.easyid));
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
+
+        btn.perform(click());
+
+
+        Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        assertNotNull(nextActivity);
+        nextActivity .finish();
+    }
+    @Test
+    public void testButtonMedium(){
+        Context targetContext = InstrumentationRegistry.getInstrumentation()
+                .getTargetContext();
+        Intent intent = new Intent(targetContext, DifficultySettings.class);
+        intent.putExtra("msg", "2");
+
+
+        ViewInteraction btn = onView(withId(R.id.mediumid));
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
+
+        btn.perform(click());
+
+
+        Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        assertNotNull(nextActivity);
+        nextActivity .finish();
+    }
+    @Test
+    public void testButtonHard(){
+        Context targetContext = InstrumentationRegistry.getInstrumentation()
+                .getTargetContext();
+        Intent intent = new Intent(targetContext, DifficultySettings.class);
+        intent.putExtra("msg", "3");
+
+
+        ViewInteraction btn = onView(withId(R.id.hardid));
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
+
+        btn.perform(click());
+
+
+        Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        assertNotNull(nextActivity);
+        nextActivity .finish();
     }
 
 
