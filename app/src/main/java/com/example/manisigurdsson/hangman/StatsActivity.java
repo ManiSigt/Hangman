@@ -55,12 +55,12 @@ public class StatsActivity extends AppCompatActivity {
                 TextView userWinpercent = findViewById(R.id.stats_winpercent);
 
                 userName.setText(user.getName());
-                userScore.setText("" +user.getScore());
-                userWins.setText("" +user.getWins());
-                userLosses.setText("" +user.getLosses());
-                userPlayed.setText("" +user.getPlayed());
+                userScore.setText(String.format(String.valueOf(user.getScore()), "%d"));
+                userWins.setText(String.format(String.valueOf(user.getWins()), "%d"));
+                userLosses.setText(String.format(String.valueOf(user.getLosses()), "%d"));
+                userPlayed.setText(String.format(String.valueOf(user.getPlayed()),"%d"));
                 double played = ((double)user.getWins()/user.getPlayed())*100;
-                userWinpercent.setText(String.format( "%.2f",played));
+                userWinpercent.setText(String.format(String.valueOf(played),"%.2f"));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

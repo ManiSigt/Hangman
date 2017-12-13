@@ -69,9 +69,8 @@ public class Hangman2player extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String buttonText = input_field.getText().toString();
-                if(buttonText != null && buttonText != " " && buttonText != "") {
-                    takeGuess(buttonText);
-                }
+                takeGuess(buttonText);
+
             }
 
             @Override

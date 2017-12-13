@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="241dp"
                 android:layout_margin="5dp"
-                android:contentDescription="hangmanPic"
+                android:contentDescription="@string/hangman_picture"
                 app:srcCompat="@drawable/hangman1_burned" />
         </LinearLayout>
 
@@ -45,7 +45,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="hidden"
                 android:textSize="24sp" />
             <Button
                 android:layout_width="wrap_content"
@@ -75,5 +74,4 @@
                 android:orientation="vertical" />
         </LinearLayout>
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

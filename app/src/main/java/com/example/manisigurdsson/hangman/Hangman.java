@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
@@ -19,14 +18,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +89,7 @@ public class Hangman extends AppCompatActivity {
         int difficulty = getIntent().getIntExtra("msg", 1);
 
         hidden_view = findViewById(R.id.hidden);
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
+        spinner = findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
 
         new getData().execute();
@@ -131,12 +128,8 @@ public class Hangman extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 String buttonText = editText.getText().toString();
-
-                if(buttonText != null && buttonText != " " && buttonText != "") {
-                    takeGuess(buttonText);
-                }
+                takeGuess(buttonText);
             }
 
             @Override
@@ -159,14 +152,15 @@ public class Hangman extends AppCompatActivity {
 
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
 
-                    if(username.compareTo(singleSnapshot.getKey().toString()) == 0){
+                    if(username.compareTo(singleSnapshot.getKey()) == 0){
 
                         user = singleSnapshot.getValue(User.class);
+                        assert user != null;
                         Log.e("userX: ", user.getName() +" " + user.getScore() + " " + user.getRubies());
 
                         Log.d("hasChild A: ", user.getName());
                         rubieview = findViewById(R.id.rubieid);
-                        rubieview.setText("" + user.getRubies());
+                        rubieview.setText(String.format(String.valueOf(user.getRubies()), "%d"));
                     }
                 }
             }
@@ -281,10 +275,10 @@ public class Hangman extends AppCompatActivity {
         super.onStop();
         db.saveUser(user);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        String wordstosave = words.toString();
+        String wordsToSave = words.toString();
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("words", wordstosave);
-        editor.commit();
+        editor.putString("words", wordsToSave);
+        editor.apply();
     }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
@@ -316,7 +310,7 @@ public class Hangman extends AppCompatActivity {
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
                     user.removeRubies(1);
-                    rubieview.setText(""+user.getRubies());
+                    rubieview.setText(String.format(String.valueOf(user.getRubies()), "%d"));
                     break;
                 }
             }
@@ -361,7 +355,7 @@ public class Hangman extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            if(result == "no-need"){
+            if(result.equals("no-need")){
 
                 if(words.size() != 0){
                     word = words.get(0).toLowerCase();
@@ -373,9 +367,7 @@ public class Hangman extends AppCompatActivity {
                     }
 
                     hidden_view.setText(build_hidden);
-                    spinner.setVisibility(View.INVISIBLE);
-
-                    return;
+                    spinner.setVisibility(View.INVISIBLE);;
                 }
                 else{
                     new getData().execute();
@@ -406,7 +398,7 @@ public class Hangman extends AppCompatActivity {
             wordsToTranslate = "";
 
             for(int i = 0; i < wordlist.size(); i++){
-                wordsToTranslate += wordlist.get(i).toString();
+                wordsToTranslate += wordlist.get(i);
                 if(wordlist.size() != i){
                     wordsToTranslate += "%20";
                 }

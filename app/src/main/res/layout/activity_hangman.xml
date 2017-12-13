@@ -23,9 +23,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="0.1"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <TextView
@@ -33,14 +33,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="num"
                 android:textSize="24sp" />
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
-                android:contentDescription="ruby"
+                android:contentDescription="@string/ruby_picture"
                 app:srcCompat="@drawable/ruby_burned_burned" />
         </LinearLayout>
 
@@ -54,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:contentDescription="hangmanPic"
+                android:contentDescription="@string/hangman_picture"
                 app:srcCompat="@drawable/hangman1_burned" />
         </LinearLayout>
 
@@ -70,8 +69,10 @@
                 android:id="@+id/hidden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="hidden"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
                 android:textSize="24sp" />
 
             <Button

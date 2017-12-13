@@ -1,73 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <Button
             android:id="@+id/btn_a"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
-
+            android:text="@string/a" />
         <Button
             android:id="@+id/btn_aa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Á" />
-
+            android:text="@string/aa" />
         <Button
             android:id="@+id/btn_b"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="B" />
-
+            android:text="@string/b" />
         <Button
             android:id="@+id/btn_c"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="C" />
-
+            android:text="@string/c" />
         <Button
             android:id="@+id/btn_d"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="D" />
-
+            android:text="@string/d" />
         <Button
             android:id="@+id/btn_dd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ð" />
-
+            android:text="@string/dd" />
         <Button
             android:id="@+id/btn_e"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="E" />
-
+            android:text="@string/e" />
         <Button
             android:id="@+id/btn_ee"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="É" />
-
+            android:text="@string/ee" />
         <Button
             android:id="@+id/btn_f"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="F" />
+            android:text="@string/f" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,133 +71,118 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="G" />
-
+            android:text="@string/g" />
         <Button
             android:id="@+id/btn_h"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="H" />
-
+            android:text="@string/h" />
         <Button
             android:id="@+id/btn_i"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="I" />
-
+            android:text="@string/i" />
         <Button
             android:id="@+id/btn_ii"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Í" />
-
+            android:text="@string/ii" />
         <Button
             android:id="@+id/btn_j"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="J" />
-
+            android:text="@string/j" />
         <Button
             android:id="@+id/btn_k"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="K" />
-
+            android:text="@string/k" />
         <Button
             android:id="@+id/btn_l"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="L" />
-
+            android:text="@string/l" />
         <Button
             android:id="@+id/btn_m"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="M" />
-
+            android:text="@string/m" />
         <Button
-            android:id="@+id/btn_t"
+            android:id="@+id/btn_n"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="T" />
+            android:text="@string/n" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_u"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="U" />
-
-        <Button
-            android:id="@+id/btn_n"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="N" />
-
         <Button
             android:id="@+id/btn_o"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="O" />
-
+            android:text="@string/o" />
         <Button
             android:id="@+id/btn_oo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ó" />
-
+            android:text="@string/oo" />
         <Button
             android:id="@+id/btn_p"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="P" />
-
+            android:text="@string/p" />
         <Button
             android:id="@+id/btn_q"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Q" />
-
+            android:text="@string/q" />
         <Button
             android:id="@+id/btn_r"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="R" />
-
+            android:text="@string/r" />
         <Button
             android:id="@+id/btn_s"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S" />
-
+            android:text="@string/s" />
+        <Button
+            android:id="@+id/btn_t"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/t" />
+        <Button
+            android:id="@+id/btn_u"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/u" />
         <Button
             android:id="@+id/btn_uu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ú" />
+            android:text="@string/uu" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -215,63 +192,54 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="V" />
-
+            android:text="@string/v" />
         <Button
             android:id="@+id/btn_w"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="W" />
-
+            android:text="@string/w" />
         <Button
             android:id="@+id/btn_x"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="X" />
-
+            android:text="@string/x" />
         <Button
             android:id="@+id/btn_y"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Y" />
-
+            android:text="@string/y" />
         <Button
             android:id="@+id/btn_yy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ý" />
-
+            android:text="@string/yy" />
         <Button
             android:id="@+id/btn_z"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Z" />
-
+            android:text="@string/z" />
         <Button
             android:id="@+id/btn_th"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Þ" />
-
+            android:text="@string/th" />
         <Button
             android:id="@+id/btn_ae"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Æ" />
-
+            android:text="@string/ae" />
         <Button
             android:id="@+id/btn_ooo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ö" />
+            android:text="@string/ooo" />
     </LinearLayout>
-
 </merge>

@@ -13,7 +13,7 @@ public class DifficultySettings extends AppCompatActivity {
         setContentView(R.layout.activity_difficulty_settings);
     }
 
-    public void easyclick(View view) {
+    public void easyClick(View view) {
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("msg", 1);
         startActivity(intent);

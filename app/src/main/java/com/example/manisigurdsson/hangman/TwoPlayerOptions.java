@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class TwoPlayerOptions extends AppCompatActivity {
     EditText p1, p2, secret;
-    Button submitbtn;
+    Button btn_submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +17,7 @@ public class TwoPlayerOptions extends AppCompatActivity {
         p1 = findViewById(R.id.player1ID);
         p2 = findViewById(R.id.player2ID);
         secret = findViewById(R.id.secretID);
-        submitbtn = findViewById(R.id.submitbtnid);
+        btn_submit = findViewById(R.id.submitbtnid);
     }
 
     public void submitClick(View view) {
