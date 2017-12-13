@@ -42,7 +42,7 @@ public class Result extends AppCompatActivity {
         }
     }
 
-    public void jaclick(View view) {
+    public void jaClick(View view) {
         if(WinOrLoss == 2 || WinOrLoss == 3){
             Intent intent = new Intent(this, TwoPlayerOptions.class);
             startActivity(intent);

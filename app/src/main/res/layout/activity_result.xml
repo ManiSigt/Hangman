@@ -14,57 +14,55 @@
         android:id="@+id/winOrLoss"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:gravity="center"
         android:textColor="#000000"
-        android:text="Þú Vannst! Orðið var :" />
+        android:text="@string/msg_winner" />
 
     <TextView
         android:id="@+id/wordId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="#000000"
-        android:gravity="center"
-        android:text="Word" />
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/Scoreset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Þú fékkst svona mörg stig!" />
+        android:text="@string/msg_score" />
 
     <TextView
         android:id="@+id/scoreID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="#000000"
-        android:gravity="center"
-        android:text="Score" />
+        android:gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Spila aftur?" />
+        android:text="@string/msg_again" />
 
     <Button
         android:id="@+id/jaId"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:onClick="jaclick"
-        android:text="Já" />
+        android:onClick="jaClick"
+        android:text="@string/btn_yes" />
 
     <Button
         android:id="@+id/neiId"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:onClick="neiClick"
-        android:text="Nei" />
+        android:text="@string/btn_no" />
 </LinearLayout>

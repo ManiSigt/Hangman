@@ -1,11 +1,5 @@
 package com.example.manisigurdsson.hangman;
 
-import java.util.List;
-
-/**
- * Created by Audur Reynisdottir on 07/12/2017.
- */
-
 public class User {
     private String name = "";
     private int score = 0;

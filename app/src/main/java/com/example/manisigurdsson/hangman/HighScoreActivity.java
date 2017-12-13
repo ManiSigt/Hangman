@@ -9,14 +9,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,12 +103,12 @@ public class HighScoreActivity extends AppCompatActivity {
                 TextView userScore = findViewById(R.id.stats_score);
 
                 userName.setText(user.getName());
-                userScore.setText("" +user.getScore());
-                userWins.setText("" +user.getWins());
-                userLosses.setText("" +user.getLosses());
-                userPlayed.setText("" +user.getPlayed());
+                userScore.setText(String.format(String.valueOf(user.getScore()), "%d"));
+                userWins.setText(String.format(String.valueOf(user.getWins()), "%d"));
+                userLosses.setText(String.format(String.valueOf(user.getLosses()), "%d"));
+                userPlayed.setText(String.format(String.valueOf(user.getPlayed()),"%d"));
                 double played = ((double)user.getWins()/user.getPlayed())*100;
-                userWinpercent.setText(String.format( "%.2f",played));
+                userWinpercent.setText(String.format(String.valueOf(played),"%.2f"));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
