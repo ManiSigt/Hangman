@@ -19,16 +19,25 @@ public class TwoPlayerOptions extends AppCompatActivity {
         secret = findViewById(R.id.secretID);
         btn_submit = findViewById(R.id.submitbtnid);
     }
+    public boolean isValid(String input){
+        return input.trim().length() > 0;
+    }
 
     public void submitClick(View view) {
         String p1name = p1.getText().toString();
         String p2name = p2.getText().toString();
         String sec = secret.getText().toString();
-        Intent intent = new Intent(TwoPlayerOptions.this, Hangman2player.class);
-        intent.putExtra("p1", p1name);
-        intent.putExtra("p2", p2name);
-        intent.putExtra("secret", sec);
-        startActivity(intent);
+        if(isValid(sec)){
+            Intent intent = new Intent(TwoPlayerOptions.this, Hangman2player.class);
+            intent.putExtra("p1", p1name);
+            intent.putExtra("p2", p2name);
+            intent.putExtra("secret", sec);
+            startActivity(intent);
+        }else{
+            secret.requestFocus();
+            secret.setError("Má ekki vera tómt");
+        }
+
 
     }
 }
