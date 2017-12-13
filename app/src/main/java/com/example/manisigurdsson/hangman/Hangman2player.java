@@ -43,7 +43,7 @@ public class Hangman2player extends AppCompatActivity {
         String hidden = "";
 
         for(int i = 0; i < word.length(); i++){
-            hidden += "-";
+            hidden += " _";
         }
         hidden_view.setText(hidden);
         MyKeyboard keyboard = findViewById(R.id.keyboard);
@@ -139,7 +139,12 @@ public class Hangman2player extends AppCompatActivity {
                     }
                 }
             }
-            if (build_hidden.toString().equals(theWord.toString())) {
+
+            String check = build_hidden.toString();
+            check = check.replaceAll("_", "");
+            check = check.replaceAll(" ", "");
+
+            if (check.equals(theWord.toString())) {
 
                 Intent intent = new Intent(Hangman2player.this, Result.class);
                 intent.putExtra("p1", p1name);
@@ -169,27 +174,16 @@ public class Hangman2player extends AppCompatActivity {
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
         int correctChars = 0;
+
         for(int i = 0; i < word.length(); i++){
-            if(guessChar == hiddenArray.charAt(i)){
-                return 0;
-            }
+
             if(guessChar == theWord.charAt(i)){
-                hiddenArray.setCharAt(i, guessChar);
+                hiddenArray.setCharAt(i*2+1, guessChar);
                 correctChars ++;
             }
         }
         return correctChars;
     }
 
-    public void hintClick(View view) {
-        char correct;
-        for (int i = 0; i < word.length(); i++) {
-            if (hidden_view.getText().toString().charAt(i) == '-') {
-                correct = word.charAt(i);
-                Toast.makeText(this, "Prófaðu þennan staf : " + correct,
-                        Toast.LENGTH_LONG).show();
-                break;
-            }
-        }
-    }
+
 }
