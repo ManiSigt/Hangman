@@ -91,8 +91,6 @@ public class Hangman extends AppCompatActivity {
 
         int difficulty = getIntent().getIntExtra("msg", 1);
 
-        word_view = findViewById(R.id.word);
-
         hidden_view = findViewById(R.id.hidden);
         spinner = (ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
@@ -241,7 +239,12 @@ public class Hangman extends AppCompatActivity {
                 }
             }
 
-            if (build_hidden.toString().equals(theWord.toString())) {
+            String check = build_hidden.toString();
+            check = check.replaceAll("_", "");
+            check = check.replaceAll(" ", "");
+
+            Log.d("CHECK: ", check);
+            if (check.equals(theWord.toString())) {
                 user.addWin();
                 user.addScore(score/word.length());
                 user.addRubies(1);
@@ -290,12 +293,8 @@ public class Hangman extends AppCompatActivity {
 
         for(int i = 0; i < word.length(); i++){
 
-            if(guessChar == hiddenArray.charAt(i)){
-                return 0;
-            }
-
             if(guessChar == theWord.charAt(i)){
-                hiddenArray.setCharAt(i, guessChar);
+                hiddenArray.setCharAt(i*2+1, guessChar);
                 correctChars ++;
             }
         }
@@ -370,7 +369,7 @@ public class Hangman extends AppCompatActivity {
                     String build_hidden = "";
 
                     for(int i = 0; i < word.length(); i++){
-                        build_hidden += "-";
+                        build_hidden += " _";
                     }
 
                     hidden_view.setText(build_hidden);
