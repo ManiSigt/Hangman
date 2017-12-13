@@ -1,6 +1,5 @@
 package com.example.manisigurdsson.hangman;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -45,7 +43,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
 
-    TextView word_view;
     TextView hidden_view, rubieview;
     EditText editText;
     String word, username, wordsToTranslate;
@@ -94,8 +91,8 @@ public class Hangman extends AppCompatActivity {
 
         int difficulty = getIntent().getIntExtra("msg", 1);
 
-
         word_view = findViewById(R.id.word);
+
         hidden_view = findViewById(R.id.hidden);
         spinner = (ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
