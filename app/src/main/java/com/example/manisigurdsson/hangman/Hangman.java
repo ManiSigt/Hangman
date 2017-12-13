@@ -300,12 +300,15 @@ public class Hangman extends AppCompatActivity {
         char correct;
 
         if(user.getRubies() > 0 ) {
+            String check = hidden_view.getText().toString();
+            check = check.replace(" ", "");
+            Log.d("XXXX: ", check);
 
             for (int i = 0; i < word.length(); i++) {
 
-                if (hidden_view.getText().toString().charAt(i) == '-') {
+                if (check.charAt(i) == '_') {
 
-                    correct = word.charAt(i);
+                    correct = word.toUpperCase().charAt(i);
 
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
                             Toast.LENGTH_LONG).show();
