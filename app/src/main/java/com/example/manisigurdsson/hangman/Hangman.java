@@ -48,6 +48,9 @@ public class Hangman extends AppCompatActivity {
     TextWatcher tw;
     List<String> wordlist = new ArrayList<>();
     List<String> words = new ArrayList<>();
+    Paths paths = new Paths();
+
+    private static String path = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text=House%20cat%20television&lang=en-is";
 
     private ProgressBar spinner;
 
@@ -331,7 +334,8 @@ public class Hangman extends AppCompatActivity {
                 StringBuilder result = new StringBuilder();
 
                 try {
-                    URL url = new URL("http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=10&sortBy=count&sortOrder=asc&limit=20&api_key=6e495aa4345325749497a17c9fb0b55b6a52a540c4a31422f");
+                    String random_url = paths.getRandom_url();
+                    URL url = new URL(random_url);
                     urlConnection = (HttpURLConnection) url.openConnection();
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -407,8 +411,9 @@ public class Hangman extends AppCompatActivity {
             StringBuilder result = new StringBuilder();
 
             try {
-                String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text="+ wordsToTranslate +"&lang=en-is";
-                URL url = new URL(urlStr);
+                paths.setTransl_url(wordsToTranslate);
+                String transl_url = paths.getTransl_url();
+                URL url = new URL(transl_url);
                 conn = (HttpsURLConnection) url.openConnection();
                 InputStream stream = new BufferedInputStream(conn.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -460,5 +465,9 @@ public class Hangman extends AppCompatActivity {
                 new getData().execute();
             }
         }
+    }
+
+    public static void setPath(String tempPath){
+        path = tempPath;
     }
 }
