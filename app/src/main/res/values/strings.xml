@@ -71,4 +71,8 @@
     <string name="ae">Æ</string>
     <string name="ooo">Ö</string>
     <string name="profile">Prófíll</string>
+    <string name="tapadir">Þú tapaðir :( orðið var :</string>
+    <string name="enginstig">þú færð engin stig</string>
+    <string name="p2vann">Vann! orðið var :</string>
+    <string name="gerabetur">þú verður að gera betur en þetta!</string>
 </resources>

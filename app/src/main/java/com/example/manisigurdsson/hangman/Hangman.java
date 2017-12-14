@@ -41,9 +41,13 @@ import javax.net.ssl.HttpsURLConnection;
 public class Hangman extends AppCompatActivity {
 
     private static FirebaseDatabase INSTANCE = null;
+    private ProgressBar spinner;
     public static void setInstance(FirebaseDatabase instance){
         INSTANCE = instance;
     }
+
+    FirebaseDatabase db;
+    DatabaseReference dbRef, dbRefChilds;
 
     TextView hidden_view, rubieview;
     EditText editText;
@@ -54,14 +58,8 @@ public class Hangman extends AppCompatActivity {
     List<String> wordlist = new ArrayList<>();
     List<String> words = new ArrayList<>();
 
-    private ProgressBar spinner;
 
-    int MAX_TRIES;
-    int tries = 0;
-    int score;
-
-    FirebaseDatabase db;
-    DatabaseReference dbRef, dbRefChilds;
+    int MAX_TRIES, score, tries = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +86,8 @@ public class Hangman extends AppCompatActivity {
         db = INSTANCE == null ? FirebaseDatabase.getInstance() : INSTANCE;
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbRefChilds = dbRef.child("users");
-        userExist();
 
+        userExist();
         getUser();
 
         int difficulty = getIntent().getIntExtra("msg", 1);
@@ -109,6 +107,7 @@ public class Hangman extends AppCompatActivity {
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
+
         img = findViewById(R.id.imageView);
 
         if(difficulty == 1){
@@ -121,7 +120,6 @@ public class Hangman extends AppCompatActivity {
             MAX_TRIES = 3;
             score = 3000;
         }
-
     }
 
     public void saveUser(User _user) {
@@ -132,6 +130,7 @@ public class Hangman extends AppCompatActivity {
     public void userExist() {
         Query check = dbRefChilds.orderByChild(username);
         check.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild(username)) {
@@ -147,7 +146,6 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void pushKey() {
-
         editText.addTextChangedListener(tw = new TextWatcher() {
 
             @Override
@@ -170,17 +168,13 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void getUser(){
-
         Query userQuery = dbRefChilds.orderByChild(username);
-
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-
                     if(username.compareTo(singleSnapshot.getKey()) == 0){
-
                         user = singleSnapshot.getValue(User.class);
                         assert user != null;
                         rubieview = findViewById(R.id.rubieid);
@@ -188,26 +182,22 @@ public class Hangman extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
                 user.setName("nope");
             }
         });
     }
 
-
     public void takeGuess (String s){
-
         StringBuilder build_hidden = new StringBuilder(hidden_view.getText().toString());
         StringBuilder theWord = new StringBuilder(word);
 
         if(s != null) {
-
             char guessChar = s.charAt(0);
 
             if (guess(build_hidden, word.toLowerCase(), guessChar) == 0) {
-
                 Toast.makeText(this, "Ekki rétt ",
                         Toast.LENGTH_SHORT).show();
                 tries++;
@@ -261,7 +251,6 @@ public class Hangman extends AppCompatActivity {
             check = check.replaceAll("_", "");
             check = check.replaceAll(" ", "");
 
-            Log.d("CHECK: ", check);
             if (check.equals(theWord.toString())) {
                 user.addWin();
                 user.addScore(score/word.length());
@@ -288,14 +277,12 @@ public class Hangman extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }, 2000);
-
             }
         }
     }
 
     @Override
     protected void onStop() {
-
         super.onStop();
         saveUser(user);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
@@ -306,11 +293,9 @@ public class Hangman extends AppCompatActivity {
     }
 
     public int guess(StringBuilder hiddenArray, String theWord, char guessChar){
-
         int correctChars = 0;
 
         for(int i = 0; i < word.length(); i++){
-
             if(guessChar == theWord.charAt(i)){
                 hiddenArray.setCharAt(i*2+1, guessChar);
                 correctChars ++;
@@ -320,16 +305,13 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void hintClick(View view) {
-
         char correct;
 
         if(user.getRubies() > 0 ) {
             String check = hidden_view.getText().toString();
             check = check.replace(" ", "");
             for (int i = 0; i < word.length(); i++) {
-
                 if (check.charAt(i) == '_') {
-
                     correct = word.toUpperCase().charAt(i);
 
                     Toast.makeText(this, "Prófaðu þennan staf : " + correct,
@@ -346,12 +328,10 @@ public class Hangman extends AppCompatActivity {
     }
 
     public class getData extends AsyncTask<String, String, String> {
-
         HttpURLConnection urlConnection;
 
         @Override
         protected String doInBackground(String... args) {
-
             if (words.size() == 0) {
                 StringBuilder result = new StringBuilder();
 
@@ -367,7 +347,6 @@ public class Hangman extends AppCompatActivity {
                     while ((line = reader.readLine()) != null) {
                         result.append(line);
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -380,9 +359,7 @@ public class Hangman extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-
             if(result.equals("no-need")){
-
                 if(words.size() != 0){
                     word = words.get(0).toLowerCase();
                     words = words.subList(1, words.size());
@@ -405,7 +382,6 @@ public class Hangman extends AppCompatActivity {
                     for (int i = 0; i < j.length(); i++) {
                         wordlist.add(j.getJSONObject(i).get("word").toString());
                     }
-
                     new getTranslation().execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -415,12 +391,10 @@ public class Hangman extends AppCompatActivity {
     }
 
     public class getTranslation extends AsyncTask <String, String, String> {
-
         HttpsURLConnection conn;
 
         @Override
         protected String doInBackground(String... strings) {
-
             wordsToTranslate = "";
 
             for(int i = 0; i < wordlist.size(); i++){
@@ -434,7 +408,6 @@ public class Hangman extends AppCompatActivity {
 
             try {
                 String t_url = Paths.getTransl_url1() + wordsToTranslate + Paths.getTransl_url2();
-
                 Paths.setTransl_url(t_url);
                 String transl_url = Paths.getTr_url();
                 URL url = new URL(transl_url);
@@ -446,20 +419,17 @@ public class Hangman extends AppCompatActivity {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 conn.disconnect();
             }
-
             return result.toString();
         }
 
         @Override
         protected void onPostExecute(String result) {
             try {
-
                 String json = new JSONObject(result)
                         .getJSONArray("text").getString(0);
                 String arr[] = json.split(" ");
@@ -481,14 +451,11 @@ public class Hangman extends AppCompatActivity {
                         words.add(arraylist.get(k));
                     }
                 }
-
                 new getData().execute();
-
             } catch (JSONException e) {
                 e.printStackTrace();
                 new getData().execute();
             }
         }
     }
-
 }
