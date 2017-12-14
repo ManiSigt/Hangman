@@ -36,7 +36,11 @@ public class Hangman2player extends AppCompatActivity {
 
         img = findViewById(R.id.imageView);
         hidden_view = findViewById(R.id.hidden);
-        word = getIntent().getStringExtra("secret");
+        if(getIntent().getStringExtra("secret") != null){
+            word = getIntent().getStringExtra("secret");
+        }else{
+            word = "móðurborð";
+        }
         p1name = getIntent().getStringExtra("p1");
         p2name = getIntent().getStringExtra("p2");
 
