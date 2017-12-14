@@ -23,15 +23,24 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".Menu" />
-        <activity android:name=".Hangman" />
-        <activity android:name=".HighScoreActivity" />
-        <activity android:name=".StatsActivity" />
-        <activity android:name=".Options" />
-        <activity android:name=".TwoPlayerOptions" />
-        <activity android:name=".Hangman2player" />
-        <activity android:name=".DifficultySettings" />
-        <activity android:name=".Result"></activity>
+        <activity android:name=".Menu"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Hangman"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HighScoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StatsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Options"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TwoPlayerOptions"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Hangman2player"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DifficultySettings"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Result"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
