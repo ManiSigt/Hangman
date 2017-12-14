@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
-import android.view.View;
 import android.view.WindowManager;
 
 import org.junit.After;
@@ -23,26 +22,23 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.hasFocus;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by manisigurdsson on 14/12/17.
- */
 public class TwoPlayerOptionsTest {
+
     @Rule
     public ActivityTestRule<TwoPlayerOptions> TwoPlayerOptionTestRule =
             new ActivityTestRule<>(TwoPlayerOptions.class, true, false);
+
     private TwoPlayerOptions activity;
-
-
 
     @Before
     public void setUp(){
-
         TwoPlayerOptionTestRule.launchActivity(new Intent());
         activity = TwoPlayerOptionTestRule.getActivity();
         noSleep(activity);
     }
+
     @After
     public void tearDown(){ }
 
@@ -53,8 +49,8 @@ public class TwoPlayerOptionsTest {
         btn.perform(click());
         word.check(matches(hasFocus()));
         word.check(matches(hasErrorText(activity.getString(R.string.notValid))));
-
     }
+
     @Test
     public void nextActivity() {
         Context targetContext = InstrumentationRegistry.getInstrumentation()
@@ -75,11 +71,11 @@ public class TwoPlayerOptionsTest {
 
         btn.perform(click());
 
-
         Hangman2player nextActivity = (Hangman2player) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity.finish();
     }
+
     private void noSleep(final Activity activity){
         Runnable wakeUp = () -> activity.getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
@@ -87,6 +83,5 @@ public class TwoPlayerOptionsTest {
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         );
         activity.runOnUiThread(wakeUp);
-
     }
 }

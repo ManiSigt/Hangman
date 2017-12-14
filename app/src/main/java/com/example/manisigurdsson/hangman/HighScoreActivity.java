@@ -25,7 +25,6 @@ public class HighScoreActivity extends AppCompatActivity {
     String name;
     User user = new User();
 
-    //database reference
     private DatabaseReference mDatabase;
 
     @Override
@@ -39,10 +38,11 @@ public class HighScoreActivity extends AppCompatActivity {
     public void getHighscoreList() {
         users = new ArrayList<User>();
         mDatabase.child("users").orderByChild("score").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                users = new ArrayList<User>();
 
-                users = new ArrayList<User>(); // Result
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     users.add(dsp.getValue(User.class));
                 }
@@ -50,48 +50,45 @@ public class HighScoreActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 
     private void populateHighscore() {
         List<String> personList = new ArrayList<String>();
-        for (int i = 0; i < users.size(); i++) {
 
+        for (int i = 0; i < users.size(); i++) {
             personList.add(users.size() - i + ". " + users.get(i).getName() + "\t\t" + users.get(i).getScore());
         }
+
         Collections.reverse(personList);
         ListView lv = findViewById(R.id.highscore_list);
         final ArrayAdapter<String> arrayAdapter;
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, personList );
-
         lv.setAdapter(arrayAdapter);
-                lv.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+        lv.setOnItemClickListener(new OnItemClickListener() {
 
-                        name = adapter.getItemAtPosition(position).toString();
-                        name = name.replaceAll("[0-9]","");
-                        name = name.replaceAll("[\t]","");
-                        name = name.replaceAll("[.]","");
-                        name = name.substring(1, name.length());
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                name = adapter.getItemAtPosition(position).toString();
+                name = name.replaceAll("[0-9]","");
+                name = name.replaceAll("[\t]","");
+                name = name.replaceAll("[.]","");
+                name = name.substring(1, name.length());
 
-                        populateStatsView();
-                    }
-                });
+                populateStatsView();
+            }
+        });
     }
 
     private void populateStatsView() {
-
         DatabaseReference ref = mDatabase.child("users");
         Query getUserQuery = ref.orderByChild(name);
 
         getUserQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 user = dataSnapshot.child(name).getValue(User.class);
                 setContentView(R.layout.activity_stats);
 
@@ -110,6 +107,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 double played = ((double)user.getWins()/user.getPlayed())*100;
                 userWinpercent.setText(String.format("%.2f",played));
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("onCancelled: ", "cancel.");

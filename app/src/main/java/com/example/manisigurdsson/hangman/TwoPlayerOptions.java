@@ -10,6 +10,7 @@ import android.widget.EditText;
 public class TwoPlayerOptions extends AppCompatActivity {
     EditText p1, p2, secret;
     Button btn_submit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,7 @@ public class TwoPlayerOptions extends AppCompatActivity {
         secret = findViewById(R.id.secretID);
         btn_submit = findViewById(R.id.submitbtnid);
     }
+
     public boolean isValid(String input){
         return input.trim().length() > 0;
     }
@@ -27,6 +29,7 @@ public class TwoPlayerOptions extends AppCompatActivity {
         String p1name = p1.getText().toString();
         String p2name = p2.getText().toString();
         String sec = secret.getText().toString();
+
         if(isValid(sec)){
             Intent intent = new Intent(TwoPlayerOptions.this, Hangman2player.class);
             intent.putExtra("p1", p1name);
@@ -37,7 +40,5 @@ public class TwoPlayerOptions extends AppCompatActivity {
             secret.requestFocus();
             secret.setError("Má ekki vera tómt");
         }
-
-
     }
 }

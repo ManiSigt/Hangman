@@ -42,6 +42,10 @@
     <string name="p2"               >Leikmaður 2</string>
     <string name="notValid"         >Má ekki vera tómt </string>
     <string name="secret"           >Spilari 1 veldu orð</string>
+    <string name="tapadir"          >Þú tapaðir :( orðið var :</string>
+    <string name="enginstig"        >þú færð engin stig</string>
+    <string name="p2vann"           >Vann! orðið var :</string>
+    <string name="gerabetur"        >þú verður að gera betur en þetta!</string>
 
     <!--results-->
     <string name="msg_winner"       >Þú Vannst! Orðið var :</string>

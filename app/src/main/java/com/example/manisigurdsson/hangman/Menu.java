@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 public class Menu extends AppCompatActivity {
+
     int REQ_ID = 1111;
     int key;
     MediaPlayer mp;
@@ -24,7 +25,6 @@ public class Menu extends AppCompatActivity {
     public void clickedTwoPlayer(View view) {
         Intent intent = new Intent(this, TwoPlayerOptions.class);
         startActivity(intent);
-
     }
 
     public void clickedOptions(View view) {
@@ -36,8 +36,8 @@ public class Menu extends AppCompatActivity {
     public void clickedSinglePlayer(View view) {
         Intent intent = new Intent(this, DifficultySettings.class);
         startActivity(intent);
-
     }
+
     @Override
     public void onActivityResult(int requestCode, int ResultCode, Intent data) {
         if (requestCode == REQ_ID) {
