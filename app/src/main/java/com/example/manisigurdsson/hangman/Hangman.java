@@ -53,9 +53,6 @@ public class Hangman extends AppCompatActivity {
     TextWatcher tw;
     List<String> wordlist = new ArrayList<>();
     List<String> words = new ArrayList<>();
-    Paths paths = new Paths();
-
-    private static String path = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171205T141245Z.709b144b45763084.686d7bb53df800a4fd509d8268db5eb1e5b48594&text=House%20cat%20television&lang=en-is";
 
     private ProgressBar spinner;
 
@@ -359,7 +356,7 @@ public class Hangman extends AppCompatActivity {
                 StringBuilder result = new StringBuilder();
 
                 try {
-                    String random_url = paths.getRandom_url();
+                    String random_url = Paths.getRandom_url();
                     URL url = new URL(random_url);
                     urlConnection = (HttpURLConnection) url.openConnection();
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -436,8 +433,10 @@ public class Hangman extends AppCompatActivity {
             StringBuilder result = new StringBuilder();
 
             try {
-                paths.setTransl_url(wordsToTranslate);
-                String transl_url = paths.getTransl_url();
+                String t_url = Paths.getTransl_url1() + wordsToTranslate + Paths.getTransl_url2();
+
+                Paths.setTransl_url(t_url);
+                String transl_url = Paths.getTr_url();
                 URL url = new URL(transl_url);
                 conn = (HttpsURLConnection) url.openConnection();
                 InputStream stream = new BufferedInputStream(conn.getInputStream());
@@ -492,7 +491,4 @@ public class Hangman extends AppCompatActivity {
         }
     }
 
-    public static void setPath(String tempPath){
-        path = tempPath;
-    }
 }

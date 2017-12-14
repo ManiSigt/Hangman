@@ -10,9 +10,9 @@
     <string name="losses">Tapað:</string>
     <string name="played">Leikir:</string>
     <string name="highscores"> Stigatafla </string>
-    <string name="off">af</string>
-    <string name="on">á</string>
-    <string name="music">tónlist</string>
+    <string name="off">Af</string>
+    <string name="on">Á</string>
+    <string name="music">Tónlist</string>
     <string name="submit">Virkja</string>
     <string name="p1">Spilari 1</string>
     <string name="p2">Spilari 2</string>

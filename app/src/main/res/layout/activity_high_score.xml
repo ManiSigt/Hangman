@@ -19,6 +19,7 @@
             android:layout_margin="20dp"
             android:layout_gravity="center"
             android:text="@string/highscores"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"/>
 
         <ListView
