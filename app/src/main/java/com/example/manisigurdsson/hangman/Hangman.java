@@ -40,6 +40,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Hangman extends AppCompatActivity {
 
+    private static FirebaseDatabase INSTANCE = null;
+    public static void setInstance(FirebaseDatabase instance){
+        INSTANCE = instance;
+    }
+
     TextView hidden_view, rubieview;
     EditText editText;
     String word, username, wordsToTranslate;
@@ -58,8 +63,8 @@ public class Hangman extends AppCompatActivity {
     int tries = 0;
     int score;
 
-    DataBase db;
-    DatabaseReference dbRef;
+    FirebaseDatabase db;
+    DatabaseReference dbRef, dbRefChilds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +88,10 @@ public class Hangman extends AppCompatActivity {
             }
         }
 
+        db = INSTANCE == null ? FirebaseDatabase.getInstance() : INSTANCE;
         dbRef = FirebaseDatabase.getInstance().getReference();
-        db = new DataBase();
-        db.userExist(username);
+        dbRefChilds = dbRef.child("users");
+        userExist();
 
         getUser();
 
@@ -121,6 +127,28 @@ public class Hangman extends AppCompatActivity {
 
     }
 
+    public void saveUser(User _user) {
+        user = _user;
+        dbRefChilds.child(user.getName()).setValue(user);
+    }
+
+    public void userExist() {
+        Query check = dbRefChilds.orderByChild(username);
+        check.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (!snapshot.hasChild(username)) {
+                    User u = new User(username);
+                    saveUser(u);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
     public void pushKey() {
 
         editText.addTextChangedListener(tw = new TextWatcher() {
@@ -146,8 +174,7 @@ public class Hangman extends AppCompatActivity {
 
     public void getUser(){
 
-        DatabaseReference ref = dbRef.child("users");
-        Query userQuery = ref.orderByChild(username);
+        Query userQuery = dbRefChilds.orderByChild(username);
 
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -159,9 +186,6 @@ public class Hangman extends AppCompatActivity {
 
                         user = singleSnapshot.getValue(User.class);
                         assert user != null;
-                        Log.e("userX: ", user.getName() +" " + user.getScore() + " " + user.getRubies());
-
-                        Log.d("hasChild A: ", user.getName());
                         rubieview = findViewById(R.id.rubieid);
                         rubieview.setText(String.format(String.valueOf(user.getRubies()), "%d"));
                     }
@@ -276,7 +300,7 @@ public class Hangman extends AppCompatActivity {
     protected void onStop() {
 
         super.onStop();
-        db.saveUser(user);
+        saveUser(user);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         String wordsToSave = words.toString();
         SharedPreferences.Editor editor = pref.edit();
@@ -305,8 +329,6 @@ public class Hangman extends AppCompatActivity {
         if(user.getRubies() > 0 ) {
             String check = hidden_view.getText().toString();
             check = check.replace(" ", "");
-            Log.d("XXXX: ", check);
-
             for (int i = 0; i < word.length(); i++) {
 
                 if (check.charAt(i) == '_') {
