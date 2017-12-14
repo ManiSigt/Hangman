@@ -9,6 +9,12 @@
     android:background="@drawable/bakgrunnur3"
     tools:context="com.example.manisigurdsson.hangman.MainMenu">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/hangman_picture"
+        app:srcCompat="@drawable/hangman10_burned" />
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
