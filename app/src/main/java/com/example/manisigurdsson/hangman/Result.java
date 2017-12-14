@@ -33,12 +33,12 @@ public class Result extends AppCompatActivity {
         }else if(WinOrLoss == 1) {
             stig.setText(Integer.toString(stigin));
         }else if(WinOrLoss == 2){
-            winorloss.setText(p2 + getString(R.string.p2vann));
-            scorewinorloss.setText(p1 + getString(R.string.gerabetur));
+            winorloss.setText(p2 + " " + getString(R.string.p2vann));
+            scorewinorloss.setText(p1 + " " + getString(R.string.gerabetur));
             stig.setText(" ");
         }else if (WinOrLoss == 3){
-            winorloss.setText(p1 + getString(R.string.p2vann));
-            scorewinorloss.setText(p2 + getString(R.string.gerabetur));
+            winorloss.setText(p1 + " " + getString(R.string.p2vann));
+            scorewinorloss.setText(p2 + " " + getString(R.string.gerabetur));
             stig.setText(" ");
         }
     }
