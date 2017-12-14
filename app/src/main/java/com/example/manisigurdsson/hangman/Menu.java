@@ -11,12 +11,14 @@ public class Menu extends AppCompatActivity {
     int REQ_ID = 1111;
     int key;
     MediaPlayer mp;
+    boolean isplaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         key = 0;
+        isplaying = false;
     }
 
     public void clickedTwoPlayer(View view) {
@@ -41,12 +43,14 @@ public class Menu extends AppCompatActivity {
         if (requestCode == REQ_ID) {
             if (ResultCode == RESULT_OK) {
                 key = data.getIntExtra("MSG", 0);
-                if(key == 0){
+                if(key == 0 && isplaying){
                     mp.stop();
                     mp.reset();
-                }else{
+                    isplaying = false;
+                }else if(key == 1 && !isplaying){
                     mp = MediaPlayer.create(getApplicationContext(), R.raw.em);
                     mp.start();
+                    isplaying = true;
                 }
             } else {
                 Toast.makeText(this, "Villa!",
