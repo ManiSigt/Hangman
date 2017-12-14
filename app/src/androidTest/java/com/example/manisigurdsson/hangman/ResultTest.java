@@ -15,29 +15,24 @@ import org.junit.Test;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by manisigurdsson on 13/12/17.
- */
 public class ResultTest {
+
     @Rule
     public ActivityTestRule<Result> ResultTestRule =
             new ActivityTestRule<>(Result.class, true, false);
+
     private Result activity;
-
-
 
     @Before
     public void setUp(){
-
         ResultTestRule.launchActivity(new Intent());
         activity = ResultTestRule.getActivity();
         noSleep(activity);
     }
+
     @After
     public void tearDown(){ }
 
@@ -48,11 +43,11 @@ public class ResultTest {
 
         btn.perform(click());
 
-
         DifficultySettings nextActivity = (DifficultySettings) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testButtonNo(){
         ViewInteraction btn = onView(withId(R.id.neiId));
@@ -60,13 +55,10 @@ public class ResultTest {
 
         btn.perform(click());
 
-
         Menu nextActivity = (Menu) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
-
-
 
     private void noSleep(final Activity activity){
         Runnable wakeUp = () -> activity.getWindow().addFlags(
@@ -75,6 +67,5 @@ public class ResultTest {
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         );
         activity.runOnUiThread(wakeUp);
-
     }
 }

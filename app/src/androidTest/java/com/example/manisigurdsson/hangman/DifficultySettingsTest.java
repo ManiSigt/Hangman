@@ -30,9 +30,6 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by manisigurdsson on 13/12/17.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class DifficultySettingsTest {
     private static final String key = "message";
@@ -40,6 +37,7 @@ public class DifficultySettingsTest {
     @Rule
     public ActivityTestRule<DifficultySettings> DifficultySettingsTestRule =
             new ActivityTestRule<>(DifficultySettings.class, true, false);
+
     private DifficultySettings activity;
 
     @Mock
@@ -57,31 +55,27 @@ public class DifficultySettingsTest {
     @Mock
     private DataSnapshot mockSnap;
 
-
-
     @Before
     public void setUp(){
-
         when(mockDB.getReference()).thenReturn(mockRef);
         when(mockRef.child("users")).thenReturn(mockRefChilds);
         when(mockRefChilds.child(any(String.class))).thenReturn(mockRefChilds2);
-
         when(mockRefChilds2.setValue(any(User.class))).thenReturn(null);
 
         DifficultySettingsTestRule.launchActivity(new Intent());
         activity = DifficultySettingsTestRule.getActivity();
         noSleep(activity);
     }
+
     @After
     public void tearDown(){ }
-    // þarf að mocka save user til að keyra þessi Test!
+
     @Test
     public void testButtonEasy(){
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
         Intent intent = new Intent(targetContext, DifficultySettings.class);
         intent.putExtra("msg", "1");
-
 
         ViewInteraction btn = onView(withId(R.id.easyid));
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
@@ -93,13 +87,13 @@ public class DifficultySettingsTest {
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testButtonMedium(){
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
         Intent intent = new Intent(targetContext, DifficultySettings.class);
         intent.putExtra("msg", "2");
-
 
         ViewInteraction btn = onView(withId(R.id.mediumid));
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
@@ -111,13 +105,13 @@ public class DifficultySettingsTest {
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testButtonHard(){
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
         Intent intent = new Intent(targetContext, DifficultySettings.class);
         intent.putExtra("msg", "3");
-
 
         ViewInteraction btn = onView(withId(R.id.hardid));
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Hangman.class.getName(), null, false);
@@ -130,9 +124,6 @@ public class DifficultySettingsTest {
         nextActivity .finish();
     }
 
-
-
-
     private void noSleep(final Activity activity){
         Runnable wakeUp = () -> activity.getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
@@ -140,7 +131,5 @@ public class DifficultySettingsTest {
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         );
         activity.runOnUiThread(wakeUp);
-
     }
-
 }

@@ -2,8 +2,8 @@ package com.example.manisigurdsson.hangman;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,33 +19,24 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import android.support.test.espresso.ViewInteraction;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.when;
 
-;
-
-/**
- * Created by Laki on 13/12/2017.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class HangmanTest {
 
     private static final String key = "message";
 
-
     @Rule
     public ActivityTestRule<Hangman> mActivity =
             new ActivityTestRule<>(Hangman.class, true, false);
+
     private Result activity;
 
     @Mock
@@ -69,26 +60,15 @@ public class HangmanTest {
         when(mockDB.getReference()).thenReturn(mockRef);
         when(mockRef.child("users")).thenReturn(mockRefChilds);
         when(mockRefChilds.child(any(String.class))).thenReturn(mockRefChilds2);
-
         when(mockRefChilds2.setValue(any(User.class))).thenReturn(null);
-
+        when(mockUser.getName()).thenReturn("name");
         Hangman.setInstance(mockDB);
-
-
         mActivity.launchActivity(new Intent());
-
         noSleep(mActivity.getActivity());
-
     }
+
     @After
-    public void tearDown() {
-    }
-
-    @Test
-    public void testHint(){
-        ViewInteraction btn = onView(withId(R.id.hint));
-        btn.check(matches(isClickable()));
-    }
+    public void tearDown() { }
 
     @Test
     public void testButtonA(){
@@ -390,5 +370,4 @@ public class HangmanTest {
         };
         activity.runOnUiThread(wakeUpDevice);
     }
-
 }
