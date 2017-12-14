@@ -9,30 +9,64 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.view.WindowManager;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by manisigurdsson on 13/12/17.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class DifficultySettingsTest {
+    private static final String key = "message";
+
     @Rule
     public ActivityTestRule<DifficultySettings> DifficultySettingsTestRule =
             new ActivityTestRule<>(DifficultySettings.class, true, false);
     private DifficultySettings activity;
 
+    @Mock
+    private FirebaseDatabase mockDB;
+
+    @Mock
+    private DatabaseReference mockRef, mockRefChilds, mockRefChilds2;
+
+    @Mock
+    private User mockUser;
+
+    @Mock
+    private Query mockQuery;
+
+    @Mock
+    private DataSnapshot mockSnap;
+
 
 
     @Before
     public void setUp(){
+
+        when(mockDB.getReference()).thenReturn(mockRef);
+        when(mockRef.child("users")).thenReturn(mockRefChilds);
+        when(mockRefChilds.child(any(String.class))).thenReturn(mockRefChilds2);
+
+        when(mockRefChilds2.setValue(any(User.class))).thenReturn(null);
 
         DifficultySettingsTestRule.launchActivity(new Intent());
         activity = DifficultySettingsTestRule.getActivity();
@@ -54,7 +88,7 @@ public class DifficultySettingsTest {
 
         btn.perform(click());
 
-
+        Hangman.setInstance(mockDB);
         Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
@@ -72,7 +106,7 @@ public class DifficultySettingsTest {
 
         btn.perform(click());
 
-
+        Hangman.setInstance(mockDB);
         Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
@@ -90,7 +124,7 @@ public class DifficultySettingsTest {
 
         btn.perform(click());
 
-
+        Hangman.setInstance(mockDB);
         Hangman nextActivity = (Hangman) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
