@@ -11,55 +11,64 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/a" />
+            android:text="@string/a"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_aa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/aa" />
+            android:text="@string/aa"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_b"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/b" />
+            android:text="@string/b"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_c"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/c" />
+            android:text="@string/c"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_d"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/d" />
+            android:text="@string/d"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_dd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/dd" />
+            android:text="@string/dd"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_e"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/e" />
+            android:text="@string/e"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_ee"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ee" />
+            android:text="@string/ee"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_f"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/f" />
+            android:text="@string/f"
+            style="@style/buttons"/>
     </LinearLayout>
 
     <LinearLayout
@@ -71,55 +80,64 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/g" />
+            android:text="@string/g"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_h"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/h" />
+            android:text="@string/h"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_i"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/i" />
+            android:text="@string/i"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_ii"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ii" />
+            android:text="@string/ii"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_j"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/j" />
+            android:text="@string/j"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_k"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/k" />
+            android:text="@string/k"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_l"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/l" />
+            android:text="@string/l"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_m"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/m" />
+            android:text="@string/m"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_n"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/n" />
+            android:text="@string/n"
+            style="@style/buttons"/>
 
     </LinearLayout>
 
@@ -132,55 +150,64 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/o" />
+            android:text="@string/o"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_oo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/oo" />
+            android:text="@string/oo"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_p"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/p" />
+            android:text="@string/p"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_q"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/q" />
+            android:text="@string/q"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_r"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/r" />
+            android:text="@string/r"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_s"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/s" />
+            android:text="@string/s"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_t"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/t" />
+            android:text="@string/t"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_u"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/u" />
+            android:text="@string/u"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_uu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/uu" />
+            android:text="@string/uu"
+            style="@style/buttons"/>
     </LinearLayout>
 
     <LinearLayout
@@ -192,54 +219,63 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/v" />
+            android:text="@string/v"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_w"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/w" />
+            android:text="@string/w"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_x"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/x" />
+            android:text="@string/x"
+            style="@style/buttons" />
         <Button
             android:id="@+id/btn_y"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/y" />
+            android:text="@string/y"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_yy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/yy" />
+            android:text="@string/yy"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_z"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/z" />
+            android:text="@string/z"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_th"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/th" />
+            android:text="@string/th"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_ae"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ae" />
+            android:text="@string/ae"
+            style="@style/buttons"/>
         <Button
             android:id="@+id/btn_ooo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ooo" />
+            android:text="@string/ooo"
+            style="@style/buttons"/>
     </LinearLayout>
 </merge>

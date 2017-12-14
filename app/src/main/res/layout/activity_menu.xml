@@ -8,44 +8,52 @@
     android:gravity="center"
     android:background="@drawable/bakgrunnur3"
     tools:context="com.example.manisigurdsson.hangman.Menu">
-
-
     <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/single_player"
         android:id="@+id/singlePlayerID"
-        android:onClick="clickedSinglePlayer"/>
-
-    <Button
-        android:layout_marginTop="10dp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:id="@+id/twoPlayerID"
-        android:text="@string/two_player"
-        android:onClick="clickedTwoPlayer"/>
-
+        android:onClick="clickedSinglePlayer"
+        android:text="@string/single_player"
+        style="@style/buttons"/>
     <Button
+        android:id="@+id/twoPlayerID"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:onClick="clickedTwoPlayer"
+        android:text="@string/two_player"
+        style="@style/buttons"/>
+    <Button
         android:id="@+id/optionsID"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:onClick="clickedOptions"
-        android:text="@string/options" />
-
-    <Button
         android:layout_marginTop="10dp"
+        android:onClick="clickedOptions"
+        android:text="@string/options"
+        style="@style/buttons"/>
+    <Button
         android:id="@+id/highscoreID"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:onClick="clickedHighscore"
-        android:text="@string/highscore" />
-
-    <Button
         android:layout_marginTop="10dp"
+        android:onClick="clickedHighscore"
+        android:text="@string/highscore"
+        style="@style/buttons"/>
+    <Button
         android:id="@+id/statsID"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:onClick="clickedStats"
-        android:text="@string/stats" />
+        android:text="@string/stats"
+        style="@style/buttons"/>
+
+    <Button
+        android:id="@+id/stats__ID"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="clickedStats"
+        android:text="@string/stats"
+        style="@style/buttons"/>
 </LinearLayout>

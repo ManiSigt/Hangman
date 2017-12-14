@@ -14,34 +14,35 @@
         android:id="@+id/music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_margin="10dp"
-        android:textSize="20sp"
         android:text="@string/music" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_margin="20dp">
+            >
             <Button
+                android:id="@+id/onbtnid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onclck"
                 android:text="@string/on"
-                android:id="@+id/onbtnid"
-                android:onClick="onclck" />
+                style="@style/buttons"/>
             <Button
                 android:id="@+id/offbtnid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="offClick"
                 android:text="@string/off"
-                android:onClick="offClick"/>
+                style="@style/buttons"/>
         </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/submitid"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/submit"
         android:onClick="SubmitClick"
-        android:text="@string/submit" />
-
+        style="@style/buttons"/>
 </LinearLayout>

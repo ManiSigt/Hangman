@@ -1,74 +1,90 @@
 <resources>
-    <string name="app_name">Hengimann</string>
-    <string name="facebook_app_id">2043777559198570</string>
-    <string name="single_player">Einn leikmaður</string>
-    <string name="two_player"> Tveir leikmenn </string>
-    <string name="options"> Stillingar </string>
-    <string name="notValid"> Má ekki vera tómt </string>
-    <string name="stats"> Prófíll </string>
-    <string name="wins">Unnið: </string>
-    <string name="losses">Tapað:</string>
-    <string name="played">Leikir:</string>
-    <string name="highscores"> Stigatafla </string>
-    <string name="off">Af</string>
-    <string name="on">Á</string>
-    <string name="music">Tónlist</string>
-    <string name="submit">Virkja</string>
-    <string name="p1">Spilari 1</string>
-    <string name="p2">Spilari 2</string>
-    <string name="secret">Spilari 1 veldu orð</string>
-    <string name="sub">Virkja</string>
-    <string name="hard">Erfitt</string>
-    <string name="medium">Miðlungs</string>
-    <string name="easy">Létt</string>
-    <string name="highscore">Stigatafla</string>
-    <string name="win">Vinnings %:</string>
-    <string name="_0">0</string>
-    <string name="score">Stig:</string>
-    <string name="hint">Vísbending</string>
-    <string name="nafn">Nafn:</string>
-    <string name="ruby_picture">Ruby picture</string>
-    <string name="hangman_picture">Hangman Picture</string>
-    <string name="msg_winner">Þú Vannst! Orðið var :</string>
-    <string name="msg_score">Þú fékkst svona mörg stig!</string>
-    <string name="msg_again">Spila aftur?</string>
-    <string name="btn_yes">Já</string>
-    <string name="btn_no">Nei</string>
-    <string name="a">A</string>
-    <string name="aa">Á</string>
-    <string name="b">B</string>
-    <string name="c">C</string>
-    <string name="d">D</string>
-    <string name="dd">Ð</string>
-    <string name="e">E</string>
-    <string name="ee">É</string>
-    <string name="f">F</string>
-    <string name="g">G</string>
-    <string name="h">H</string>
-    <string name="i">I</string>
-    <string name="ii">Í</string>
-    <string name="j">J</string>
-    <string name="k">K</string>
-    <string name="l">L</string>
-    <string name="m">M</string>
-    <string name="t">T</string>
-    <string name="u">U</string>
-    <string name="n">N</string>
-    <string name="o">O</string>
-    <string name="oo">Ó</string>
-    <string name="p">P</string>
-    <string name="q">Q</string>
-    <string name="r">R</string>
-    <string name="s">S</string>
-    <string name="uu">Ú</string>
-    <string name="v">V</string>
-    <string name="w">W</string>
-    <string name="x">X</string>
-    <string name="y">Y</string>
-    <string name="yy">Ý</string>
-    <string name="z">Z</string>
-    <string name="th">Þ</string>
-    <string name="ae">Æ</string>
+    <string name="app_name"         >Hengimann</string>
+    <string name="facebook_app_id"  >2043777559198570</string>
+
+    <!--menu-->
+    <string name="single_player"    >1 leikmaður</string>
+    <string name="two_player"       >2 leikmenn </string>
+    <string name="options"          >Stillingar </string>
+    <string name="highscores"       >Stigatafla </string>
+    <string name="stats"            >Prófíll</string>
+
+    <!--options-->
+    <string name="music"            >Tónlist</string>
+    <string name="off"              >Af</string>
+    <string name="on"               >Á</string>
+    <string name="submit"           >Virkja</string>
+
+    <!--statistics-->
+    <string name="profile"          >Prófíll</string>
+    <string name="nafn"             >Nafn: </string>
+    <string name="score"            >Stig: </string>
+    <string name="wins"             >Unnið: </string>
+    <string name="losses"           >Tapað: </string>
+    <string name="played"           >Leikir: </string>
+    <string name="win"              >Vinnings %:</string>
+
+    <!--highscore-->
+    <string name="highscore"        >Stigatafla</string>
+
+    <!--difficulty-->
+    <string name="easy"             >Létt</string>
+    <string name="medium"           >Miðlungs</string>
+    <string name="hard"             >Erfitt</string>
+
+    <!--one player-->
+    <string name="ruby_picture"     >Ruby picture</string>
+    <string name="hangman_picture"  >Hangman Picture</string>
+    <string name="hint"             >Vísbending</string>
+
+    <!--two player-->
+    <string name="p1"               >Leikmaður 1</string>
+    <string name="p2"               >Leikmaður 2</string>
+    <string name="notValid"         >Má ekki vera tómt </string>
+    <string name="secret"           >Spilari 1 veldu orð</string>
+
+    <!--results-->
+    <string name="msg_winner"       >Þú Vannst! Orðið var :</string>
+    <string name="msg_score"        >Þú fékkst svona mörg stig!</string>
+    <string name="msg_again"        >Spila aftur?</string>
+    <string name="btn_yes"          >Já</string>
+    <string name="btn_no"           >Nei</string>
+
+    <!--buttons-->
+    <string name="a"  >A</string>
+    <string name="aa" >Á</string>
+    <string name="b"  >B</string>
+    <string name="c"  >C</string>
+    <string name="d"  >D</string>
+    <string name="dd" >Ð</string>
+    <string name="e"  >E</string>
+    <string name="ee" >É</string>
+    <string name="f"  >F</string>
+    <string name="g"  >G</string>
+    <string name="h"  >H</string>
+    <string name="i"  >I</string>
+    <string name="ii" >Í</string>
+    <string name="j"  >J</string>
+    <string name="k"  >K</string>
+    <string name="l"  >L</string>
+    <string name="m"  >M</string>
+    <string name="t"  >T</string>
+    <string name="u"  >U</string>
+    <string name="n"  >N</string>
+    <string name="o"  >O</string>
+    <string name="oo" >Ó</string>
+    <string name="p"  >P</string>
+    <string name="q"  >Q</string>
+    <string name="r"  >R</string>
+    <string name="s"  >S</string>
+    <string name="uu" >Ú</string>
+    <string name="v"  >V</string>
+    <string name="w"  >W</string>
+    <string name="x"  >X</string>
+    <string name="y"  >Y</string>
+    <string name="yy" >Ý</string>
+    <string name="z"  >Z</string>
+    <string name="th" >Þ</string>
+    <string name="ae" >Æ</string>
     <string name="ooo">Ö</string>
-    <string name="profile">Prófíll</string>
 </resources>
