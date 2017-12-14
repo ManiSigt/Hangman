@@ -47,13 +47,4 @@
         android:onClick="clickedStats"
         android:text="@string/stats"
         style="@style/buttons"/>
-
-    <Button
-        android:id="@+id/stats__ID"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="clickedStats"
-        android:text="@string/stats"
-        style="@style/buttons"/>
 </LinearLayout>
