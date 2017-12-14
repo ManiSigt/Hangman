@@ -21,12 +21,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/profile"/>
-
-
+                android:text="@string/profile" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,16 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/nafn"
-                android:textSize="20sp" />
+                android:text="@string/nafn"/>
             <TextView
                 android:id="@+id/stats_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_margin="20dp"
-                android:textSize="20sp" />
+                android:layout_margin="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,16 +48,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/score"
-                android:textSize="20sp"/>
+                android:text="@string/score"/>
             <TextView
                 android:id="@+id/stats_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"/>
+                android:layout_margin="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -75,16 +64,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/wins"
-                android:textSize="20sp"/>
+                android:text="@string/wins"/>
             <TextView
                 android:id="@+id/stats_wins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"/>
+                android:layout_margin="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -95,16 +80,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/losses"
-                android:textSize="20sp"/>
+                android:text="@string/losses"/>
             <TextView
                 android:id="@+id/stats_losses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"/>
+                android:layout_margin="20dp"/>
          </LinearLayout>
 
         <LinearLayout
@@ -115,16 +96,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/played"
-                android:textSize="20sp"/>
+                android:text="@string/played"/>
             <TextView
                 android:id="@+id/stats_played"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"/>
+                android:layout_margin="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -134,17 +111,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/win"
-                android:textSize="20sp"/>
+                android:text="@string/win"/>
             <TextView
                 android:id="@+id/stats_winpercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"/>
+                android:layout_margin="20dp"/>
         </LinearLayout>
     </LinearLayout>
 

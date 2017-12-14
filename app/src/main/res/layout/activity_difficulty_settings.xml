@@ -13,22 +13,25 @@
         android:id="@+id/easyid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:onClick="easyClick"
         android:text="@string/easy"
-        android:onClick="easyClick"/>
+        style="@style/buttons"/>
 
     <Button
         android:id="@+id/mediumid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/medium"
         android:layout_marginTop="10dp"
-        android:onClick="mediumClick"/>
+        android:onClick="mediumClick"
+        android:text="@string/medium"
+        style="@style/buttons"/>
 
     <Button
         android:id="@+id/hardid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/hard"
         android:layout_marginTop="10dp"
-        android:onClick="hardClick"/>
+        android:onClick="hardClick"
+        android:text="@string/hard"
+        style="@style/buttons"/>
 </LinearLayout>
