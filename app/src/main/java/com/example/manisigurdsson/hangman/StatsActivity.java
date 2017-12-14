@@ -1,10 +1,8 @@
 package com.example.manisigurdsson.hangman;
 
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,8 +11,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -39,6 +35,7 @@ public class StatsActivity extends AppCompatActivity {
         Query userQuery = ref.orderByChild(username);
 
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
@@ -64,11 +61,8 @@ public class StatsActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled: ", "cancel.");
                 user.setName("nope");
             }
         });
     }
-
-
 }

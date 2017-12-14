@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class Result extends AppCompatActivity {
     TextView ord, stig, winorloss, scorewinorloss;
     int WinOrLoss;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,18 +27,18 @@ public class Result extends AppCompatActivity {
         ord.setText(ordid);
 
         if(WinOrLoss == 0){
-            winorloss.setText("Þú tapaðir :( orðið var :");
-            scorewinorloss.setText("þú færð engin stig");
+            winorloss.setText(R.string.tapadir);
+            scorewinorloss.setText(R.string.enginstig);
             stig.setText(" ");
         }else if(WinOrLoss == 1) {
             stig.setText(Integer.toString(stigin));
         }else if(WinOrLoss == 2){
-            winorloss.setText(p2 + " Vann! orðið var :");
-            scorewinorloss.setText(p1 + " þú verður að gera betur en þetta!");
+            winorloss.setText(p2 + getString(R.string.p2vann));
+            scorewinorloss.setText(p1 + getString(R.string.gerabetur));
             stig.setText(" ");
         }else if (WinOrLoss == 3){
-            winorloss.setText(p1 + " Vann! orðið var :");
-            scorewinorloss.setText(p2 + " þú verður að gera betur en þetta!");
+            winorloss.setText(p1 + getString(R.string.p2vann));
+            scorewinorloss.setText(p2 + getString(R.string.gerabetur));
             stig.setText(" ");
         }
     }

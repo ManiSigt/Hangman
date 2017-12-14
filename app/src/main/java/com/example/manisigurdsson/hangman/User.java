@@ -11,8 +11,7 @@ public class User {
     public User(String s) {
         name = s;
     }
-    public User() {
-    }
+    public User() { }
 
     public String getName() {
         return name;
@@ -30,10 +29,7 @@ public class User {
         return losses;
     }
 
-    public int getRubies() {
-
-        return rubies;
-    }
+    public int getRubies() { return rubies; }
 
     public int getPlayed() { return (played); }
 
@@ -45,19 +41,13 @@ public class User {
         score = score  + n;
     }
 
-    public void addWin() {
-        wins = wins + 1;
-        played = played +1;
-    }
+    public void addWin() { wins = wins + 1; played = played +1; }
 
-    public void addLoss() {
-        losses = losses + 1;
-        played = played + 1;
-    }
+    public void addLoss() { losses = losses + 1; played = played + 1; }
 
     public void addRubies(int n) {
         rubies = rubies + n;
     }
-    public void removeRubies(int n) {rubies = rubies - n;}
 
+    public void removeRubies(int n) {rubies = rubies - n;}
 }
