@@ -7,7 +7,6 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,33 +14,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.app.PendingIntent.getActivity;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by manisigurdsson on 12/12/17.
- */
 @RunWith(AndroidJUnit4.class)
 public class MenuTest {
 
     @Rule
     public ActivityTestRule<Menu> mMenuTestRule =
             new ActivityTestRule<>(Menu.class, true, false);
+
     private Menu activity;
-
-
 
     @Before
     public void setUp(){
-
         mMenuTestRule.launchActivity(new Intent());
         activity = mMenuTestRule.getActivity();
         noSleep(activity);
     }
+
     @After
     public void tearDown(){ }
 
@@ -52,11 +46,11 @@ public class MenuTest {
 
         btn.perform(click());
 
-
         DifficultySettings nextActivity = (DifficultySettings) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testTwoPlayer(){
         ViewInteraction btn = onView(withId(R.id.twoPlayerID));
@@ -69,6 +63,7 @@ public class MenuTest {
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testOptions(){
         ViewInteraction btn = onView(withId(R.id.optionsID));
@@ -76,11 +71,11 @@ public class MenuTest {
 
         btn.perform(click());
 
-
         Options nextActivity = (Options) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testHighscores(){
         ViewInteraction btn = onView(withId(R.id.highscoreID));
@@ -88,11 +83,11 @@ public class MenuTest {
 
         btn.perform(click());
 
-
         HighScoreActivity nextActivity = (HighScoreActivity) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     @Test
     public void testStats(){
         ViewInteraction btn = onView(withId(R.id.statsID));
@@ -100,11 +95,11 @@ public class MenuTest {
 
         btn.perform(click());
 
-
         StatsActivity nextActivity = (StatsActivity) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
+
     private void noSleep(final Activity activity){
         Runnable wakeUp = () -> activity.getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
@@ -112,7 +107,5 @@ public class MenuTest {
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         );
         activity.runOnUiThread(wakeUp);
-
     }
-
 }
