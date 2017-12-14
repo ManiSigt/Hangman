@@ -4,35 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/bakgrunnur3"
     tools:context="com.example.manisigurdsson.hangman.Options">
 
 
     <TextView
+        android:id="@+id/music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
         android:text="@string/music" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/on"
-        android:id="@+id/onbtnid"
-        android:onClick="onclck"
-        />
-
-    <Button
-        android:id="@+id/offbtnid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/off"
-        android:onClick="offClick"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="20dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/on"
+                android:id="@+id/onbtnid"
+                android:onClick="onclck" />
+            <Button
+                android:id="@+id/offbtnid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/off"
+                android:onClick="offClick"/>
+        </LinearLayout>
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/submitid"
         android:layout_height="wrap_content"
         android:onClick="SubmitClick"
         android:text="@string/submit" />
+
 </LinearLayout>
