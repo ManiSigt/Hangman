@@ -10,12 +10,14 @@
     tools:context="com.example.manisigurdsson.hangman.DifficultySettings">
 
     <Button
+        android:id="@+id/easyid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/easy"
         android:onClick="easyClick"/>
 
     <Button
+        android:id="@+id/mediumid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/medium"
@@ -23,7 +25,7 @@
         android:onClick="mediumClick"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/hardid"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/hard"
