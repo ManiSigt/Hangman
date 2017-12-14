@@ -108,7 +108,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 userLosses.setText(String.format(String.valueOf(user.getLosses()), "%d"));
                 userPlayed.setText(String.format(String.valueOf(user.getPlayed()),"%d"));
                 double played = ((double)user.getWins()/user.getPlayed())*100;
-                userWinpercent.setText(String.format(String.valueOf(played),"%.2f"));
+                userWinpercent.setText(String.format("%.2f",played));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

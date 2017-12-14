@@ -3,6 +3,7 @@ package com.example.manisigurdsson.hangman;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +25,11 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.when;
 
 ;
@@ -68,17 +72,6 @@ public class HangmanTest {
 
         when(mockRefChilds2.setValue(any(User.class))).thenReturn(null);
 
-        /*
-        when(mockSnap.getValue(String.class)).thenReturn("init_value");
-        Answer<Void> myAnswer = new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) {
-                ValueEventListener callback = (ValueEventListener) invocation.getArguments()[0]; // second argument in performAsyncAction
-                callback.onDataChange(mockSnap); // this would be 1 or 2 in your case
-                return null;
-            }
-        };
-        doAnswer(myAnswer).when(mockRef).addValueEventListener(any(ValueEventListener.class));
-*/
         Hangman.setInstance(mockDB);
 
 
@@ -91,7 +84,11 @@ public class HangmanTest {
     public void tearDown() {
     }
 
-
+    @Test
+    public void testHint(){
+        ViewInteraction btn = onView(withId(R.id.hint));
+        btn.check(matches(isClickable()));
+    }
 
     @Test
     public void testButtonA(){
@@ -379,7 +376,6 @@ public class HangmanTest {
         btn.perform(click());
         btn.check(matches(not(isClickable())));
     }
-
 
     private void noSleep(final Activity activity) {
         Runnable wakeUpDevice = new Runnable() {
