@@ -2,8 +2,11 @@ package com.example.manisigurdsson.hangman;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,9 +20,12 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -29,6 +35,9 @@ public class OptionsTest {
     @Rule
     public ActivityTestRule<Options> OptionsTestRule =
             new ActivityTestRule<>(Options.class, true, false);
+    @Rule
+    public IntentsTestRule<Options> intentsTestRule =
+            new IntentsTestRule<>(Options.class);
     private Options activity;
 
 
@@ -58,20 +67,18 @@ public class OptionsTest {
         offbtn.perform(click());
         btn.check(matches(isClickable()));
     }
-   /* @Test
+    @Test
     public void testSubmitBtn(){
-        ViewInteraction btn = onView(withId(R.id.submitid));
-        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Menu.class.getName(), null, false);
+        Intent resultData = new Intent();
+        resultData.putExtra("MSG", 1);
+        Instrumentation.ActivityResult result =
+                new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
 
-        btn.perform(click());
+        intending(toPackage("com.android.Menu")).respondWith(result);
 
-        assertThat(OptionsTestRule.getActivityResult(), has(Activity.RESULT_OK));
+        onView(withId(R.id.submitid)).perform(click());
 
-
-        Menu nextActivity = (Menu) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
-        assertNotNull(nextActivity);
-        nextActivity .finish();
-    }*/
+    }
 
 
     private void noSleep(final Activity activity){

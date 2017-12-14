@@ -4,6 +4,7 @@
     <string name="single_player">Einn leikmaður</string>
     <string name="two_player"> Tveir leikmenn </string>
     <string name="options"> Stillingar </string>
+    <string name="notValid"> Má ekki vera tómt </string>
     <string name="stats"> Prófíll </string>
     <string name="wins">Unnið: </string>
     <string name="losses">Tapað:</string>
