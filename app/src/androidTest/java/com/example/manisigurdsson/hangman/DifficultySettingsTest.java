@@ -61,6 +61,7 @@ public class DifficultySettingsTest {
         when(mockRef.child("users")).thenReturn(mockRefChilds);
         when(mockRefChilds.child(any(String.class))).thenReturn(mockRefChilds2);
         when(mockRefChilds2.setValue(any(User.class))).thenReturn(null);
+        when(mockUser.getName()).thenReturn("name");
 
         DifficultySettingsTestRule.launchActivity(new Intent());
         activity = DifficultySettingsTestRule.getActivity();
@@ -70,6 +71,7 @@ public class DifficultySettingsTest {
     @After
     public void tearDown(){ }
 
+    /*
     @Test
     public void testButtonEasy(){
         Context targetContext = InstrumentationRegistry.getInstrumentation()
@@ -123,7 +125,7 @@ public class DifficultySettingsTest {
         assertNotNull(nextActivity);
         nextActivity .finish();
     }
-
+*/
     private void noSleep(final Activity activity){
         Runnable wakeUp = () -> activity.getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
